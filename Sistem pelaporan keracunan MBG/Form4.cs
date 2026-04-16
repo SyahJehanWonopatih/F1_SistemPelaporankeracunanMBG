@@ -11,17 +11,17 @@ using System.Windows.Forms;
 
 namespace Sistem_pelaporan_keracunan_MBG
 {
-    public partial class Form2 : Form
+    public partial class Form4 : Form
     {
         private readonly SqlConnection conn;
         private readonly string connectionString =
             "Data Source=TERABYTE\\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
-        public Form2()
+        public Form4()
         {
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
