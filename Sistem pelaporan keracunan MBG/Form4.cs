@@ -23,7 +23,7 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void label2_Click(object sender, EventArgs e)
         {
-            string connectionString = @"Data Source=TERABYTE\\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
+            string connString = @"Data Source=TERABYTE\\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
         }
 
        

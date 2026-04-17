@@ -28,11 +28,14 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxKotaKab.Items.Count == 0)
+            { 
             comboBoxKotaKab.Items.Add("Manado");
             comboBoxKotaKab.Items.Add("Kota Yogyakarta");
-            comboBoxKotaKab.Items.Add("sleman");
+            comboBoxKotaKab.Items.Add("Sleman");
             comboBoxKotaKab.Items.Add("Bandung");
             comboBoxKotaKab.Items.Add("Jakarta");
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -67,22 +70,20 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtBoxNamaLengkap.Text) ||
+                string.IsNullOrEmpty(txtBoxNomorKontak.Text) ||
+                comboBoxKotaKab.SelectedIndex == -1) 
+            {
+                MessageBox.Show("Isi semua datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; 
+            }
             namaLengkap = txtBoxNamaLengkap.Text;
             noKontak = txtBoxNomorKontak.Text;
-            kotaKab = comboBoxKotaKab.SelectedItem.ToString();
+            kotaKab = comboBoxKotaKab.Text;
 
-            if (string.IsNullOrEmpty(txtBoxNamaLengkap.Text) || string.IsNullOrEmpty(txtBoxNomorKontak.Text) || comboBoxKotaKab.SelectedIndex == -1)
-            {
-                MessageBox.Show("isi semua datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
             Form2 formKejadian = new Form2();
-
-            
-
             formKejadian.Show();
-            this.Hide(); 
-
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)

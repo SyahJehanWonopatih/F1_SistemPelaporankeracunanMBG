@@ -144,5 +144,36 @@ namespace Sistem_pelaporan_keracunan_MBG
                 }
             }
         }
+
+        private void btnHapus_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string idLaporan = dataGridView1.SelectedRows[0].Cells["id_laporan"].Value.ToString();
+
+                DialogResult dr = MessageBox.Show("PERINGATAN: Data yang dihapus tidak bisa dikembalikan. Hapus laporan ini?",
+                                  "Hapus Permanen", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+
+                if (dr == DialogResult.Yes)
+                {
+                    string connString = @"Data Source=TERABYTE\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
+                    try
+                    {
+                        using (SqlConnection conn = new SqlConnection(connString))
+                        {
+                            conn.Open();
+                            string query = "DELETE FROM Laporan WHERE id_laporan = @id";
+                            SqlCommand cmd = new SqlCommand(query, conn);
+                            cmd.Parameters.AddWithValue("@id", idLaporan);
+                            cmd.ExecuteNonQuery();
+
+                            MessageBox.Show("Data berhasil dihapus dari database!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadDataLaporan(); 
+                        }
+                    }
+                    catch (Exception ex) { MessageBox.Show("Gagal hapus: " + ex.Message); }
+                }
+            }
+        }
     }
 }
