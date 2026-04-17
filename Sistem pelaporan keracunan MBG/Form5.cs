@@ -33,7 +33,33 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void LoadDataLaporan()
         {
-          
+            string connString = @"Data Source=TERABYTE\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
+
+            string query = @"SELECT L.id_laporan, M.nama_pelapor, M.kontak, M.kota_kab, L.lokasi_kejadian, L.tanggal, L.jumlah_korban, L.gejala, L.status_validasi 
+                 FROM Laporan L 
+                 JOIN Masyarakat M ON L.id_masyarakat = M.id_masyarakat";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    // Reset dan isi tabel
+                    dataGridView1.DataSource = null;
+                    dataGridView1.DataSource = dt;
+
+                    // Opsional: ID Laporan gausah dilihatin ke admin biar rapi
+                    if (dataGridView1.Columns.Contains("id_laporan"))
+                        dataGridView1.Columns["id_laporan"].Visible = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal narik data cik: " + ex.Message);
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -43,29 +69,8 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string connString = @"Data Source=TERABYTE\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
-
-            string query = @"SELECT L.id_laporan, M.nama_pelapor, L.lokasi_kejadian, L.tanggal, L.jumlah_korban, L.gejala, L.status_validasi 
-                     FROM Laporan L 
-                     JOIN Masyarakat M ON L.id_masyarakat = M.id_masyarakat";
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connString))
-                {
-                    conn.Open();
-
-                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                    MessageBox.Show("Koneksi Database Berhasil!.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Koneksi Gagal!: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            LoadDataLaporan(); 
+            MessageBox.Show("Data Berhasil Diperbarui!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnTerima_Click(object sender, EventArgs e)
