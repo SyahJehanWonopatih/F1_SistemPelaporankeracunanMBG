@@ -13,6 +13,10 @@ namespace Sistem_pelaporan_keracunan_MBG
 {
     public partial class Form1 : Form
     {
+        public static string namaLengkap = "";
+        public static string noKontak = "";
+        public static string kotaKab = "";
+
         private readonly SqlConnection conn;
         private readonly string connectionString =
             "Data Source=TERABYTE\\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
@@ -63,9 +67,13 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button1_Click(object sender, EventArgs e)
         {
+            namaLengkap = txtBoxNamaLengkap.Text;
+            noKontak = txtBoxNomorKontak.Text;
+            kotaKab = comboBoxKotaKab.SelectedItem.ToString();
+
             if (string.IsNullOrEmpty(txtBoxNamaLengkap.Text) || string.IsNullOrEmpty(txtBoxNomorKontak.Text) || comboBoxKotaKab.SelectedIndex == -1)
             {
-                MessageBox.Show("Waduh cik, isi dulu semua datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("isi semua datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             Form2 formKejadian = new Form2();
