@@ -113,5 +113,36 @@ namespace Sistem_pelaporan_keracunan_MBG
                 MessageBox.Show("Pilih dulu baris laporan yang mau diterima di tabel!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void btnTolak_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                string idLaporan = dataGridView1.SelectedRows[0].Cells["id_laporan"].Value.ToString();
+                string nama = dataGridView1.SelectedRows[0].Cells["nama_pelapor"].Value.ToString();
+
+                DialogResult dr = MessageBox.Show($"Yakin mau menolak laporan dari {nama}?", "Konfirmasi Tolak", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (dr == DialogResult.Yes)
+                {
+                    string connString = @"Data Source=TERABYTE\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
+                    try
+                    {
+                        using (SqlConnection conn = new SqlConnection(connString))
+                        {
+                            conn.Open();
+                            string query = "UPDATE Laporan SET status_validasi = 'Ditolak' WHERE id_laporan = @id";
+                            SqlCommand cmd = new SqlCommand(query, conn);
+                            cmd.Parameters.AddWithValue("@id", idLaporan);
+                            cmd.ExecuteNonQuery();
+
+                            MessageBox.Show("Laporan telah ditolak.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadDataLaporan();
+                        }
+                    }
+                    catch (Exception ex) { MessageBox.Show("Gagal tolak: " + ex.Message); }
+                }
+            }
+        }
     }
 }
