@@ -32,8 +32,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtBoxLokasi = new System.Windows.Forms.TextBox();
+            this.txtBoxTanggal = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -80,23 +80,23 @@
             this.label2.TabIndex = 18;
             this.label2.Text = "Tanggal";
             // 
-            // textBox1
+            // txtBoxLokasi
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.textBox1.ForeColor = System.Drawing.Color.Black;
-            this.textBox1.Location = new System.Drawing.Point(156, 164);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(326, 20);
-            this.textBox1.TabIndex = 19;
+            this.txtBoxLokasi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtBoxLokasi.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxLokasi.Location = new System.Drawing.Point(156, 164);
+            this.txtBoxLokasi.Name = "txtBoxLokasi";
+            this.txtBoxLokasi.Size = new System.Drawing.Size(326, 20);
+            this.txtBoxLokasi.TabIndex = 19;
             // 
-            // textBox2
+            // txtBoxTanggal
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.textBox2.ForeColor = System.Drawing.Color.Black;
-            this.textBox2.Location = new System.Drawing.Point(156, 220);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(326, 20);
-            this.textBox2.TabIndex = 20;
+            this.txtBoxTanggal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtBoxTanggal.ForeColor = System.Drawing.Color.Black;
+            this.txtBoxTanggal.Location = new System.Drawing.Point(156, 220);
+            this.txtBoxTanggal.Name = "txtBoxTanggal";
+            this.txtBoxTanggal.Size = new System.Drawing.Size(326, 20);
+            this.txtBoxTanggal.TabIndex = 20;
             // 
             // label3
             // 
@@ -130,8 +130,8 @@
             this.ClientSize = new System.Drawing.Size(688, 488);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBoxTanggal);
+            this.Controls.Add(this.txtBoxLokasi);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
@@ -149,8 +149,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtBoxLokasi;
+        private System.Windows.Forms.TextBox txtBoxTanggal;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
     }

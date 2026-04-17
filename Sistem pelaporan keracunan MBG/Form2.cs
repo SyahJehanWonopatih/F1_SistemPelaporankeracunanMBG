@@ -28,7 +28,14 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            if (string.IsNullOrWhiteSpace(txtBoxLokasi.Text))
+            {
+                MessageBox.Show("Lokasi Harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Form3 formGejala = new Form3();
+            formGejala.Show();
+            this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
