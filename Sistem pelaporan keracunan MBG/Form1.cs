@@ -29,12 +29,12 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxKotaKab.Items.Count == 0)
-            { 
-            comboBoxKotaKab.Items.Add("Manado");
-            comboBoxKotaKab.Items.Add("Kota Yogyakarta");
-            comboBoxKotaKab.Items.Add("Sleman");
-            comboBoxKotaKab.Items.Add("Bandung");
-            comboBoxKotaKab.Items.Add("Jakarta");
+            {
+                comboBoxKotaKab.Items.Add("Manado");
+                comboBoxKotaKab.Items.Add("Kota Yogyakarta");
+                comboBoxKotaKab.Items.Add("Sleman");
+                comboBoxKotaKab.Items.Add("Bandung");
+                comboBoxKotaKab.Items.Add("Jakarta");
             }
         }
 
@@ -72,10 +72,10 @@ namespace Sistem_pelaporan_keracunan_MBG
         {
             if (string.IsNullOrEmpty(txtBoxNamaLengkap.Text) ||
                 string.IsNullOrEmpty(txtBoxNomorKontak.Text) ||
-                comboBoxKotaKab.SelectedIndex == -1) 
+                comboBoxKotaKab.SelectedIndex == -1)
             {
                 MessageBox.Show("Isi semua datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return; 
+                return;
             }
             namaLengkap = txtBoxNamaLengkap.Text;
             noKontak = txtBoxNomorKontak.Text;
@@ -96,7 +96,7 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
     }
 }

@@ -33,7 +33,6 @@
             this.btnLogout = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnTerima = new System.Windows.Forms.Button();
-            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.btnTolak = new System.Windows.Forms.Button();
             this.btnHapus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -92,12 +91,6 @@
             this.btnTerima.UseVisualStyleBackColor = false;
             this.btnTerima.Click += new System.EventHandler(this.btnTerima_Click);
             // 
-            // directorySearcher1
-            // 
-            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
             // btnTolak
             // 
             this.btnTolak.BackColor = System.Drawing.Color.Silver;
@@ -148,7 +141,6 @@
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnTerima;
-        private System.DirectoryServices.DirectorySearcher directorySearcher1;
         private System.Windows.Forms.Button btnTolak;
         private System.Windows.Forms.Button btnHapus;
     }

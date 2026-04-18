@@ -163,7 +163,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(689, 490);
+            this.ClientSize = new System.Drawing.Size(687, 487);
             this.Controls.Add(this.buttonLoginAdmin);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxKotaKab);

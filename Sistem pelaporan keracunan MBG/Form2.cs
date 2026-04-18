@@ -36,7 +36,7 @@ namespace Sistem_pelaporan_keracunan_MBG
 
             if (string.IsNullOrWhiteSpace(txtBoxLokasi.Text))
             {
-                MessageBox.Show("Lokasi Harus diisi!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lengkapi Datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             Form3 formGejala = new Form3();

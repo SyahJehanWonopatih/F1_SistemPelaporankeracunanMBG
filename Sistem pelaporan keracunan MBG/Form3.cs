@@ -30,7 +30,7 @@ namespace Sistem_pelaporan_keracunan_MBG
         {
             if (string.IsNullOrWhiteSpace(txtGejala.Text) || string.IsNullOrWhiteSpace(txtKorban.Text))
             {
-                MessageBox.Show("Deskripsi Gejala dan Jumlah Korban wajib diisiD!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Lengkapi Data!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

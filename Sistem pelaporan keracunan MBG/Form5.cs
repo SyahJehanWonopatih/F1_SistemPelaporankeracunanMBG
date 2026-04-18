@@ -47,18 +47,16 @@ namespace Sistem_pelaporan_keracunan_MBG
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
-                    // Reset dan isi tabel
                     dataGridView1.DataSource = null;
                     dataGridView1.DataSource = dt;
 
-                    // Opsional: ID Laporan gausah dilihatin ke admin biar rapi
                     if (dataGridView1.Columns.Contains("id_laporan"))
                         dataGridView1.Columns["id_laporan"].Visible = false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal narik data cik: " + ex.Message);
+                MessageBox.Show("Gagal narik data: " + ex.Message);
             }
         }
 
@@ -77,6 +75,15 @@ namespace Sistem_pelaporan_keracunan_MBG
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
+                string statusSekarang = dataGridView1.SelectedRows[0].Cells["status_validasi"].Value.ToString();
+
+                if (statusSekarang == "Diterima")
+                {
+                    MessageBox.Show("Laporan ini sudah divalidasi sebelumnya dan berstatus 'Diterima'!",
+                                    "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return; 
+                }
+
                 string idLaporan = dataGridView1.SelectedRows[0].Cells["id_laporan"].Value.ToString();
 
                 DialogResult dr = MessageBox.Show("Validasi laporan dengan ID " + idLaporan + " ini?",
@@ -99,7 +106,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                             cmd.ExecuteNonQuery();
 
                             MessageBox.Show("Laporan Berhasil Divalidasi!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            LoadDataLaporan();
+                            LoadDataLaporan(); 
                         }
                     }
                     catch (Exception ex)
@@ -118,10 +125,24 @@ namespace Sistem_pelaporan_keracunan_MBG
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
+                string statusSekarang = dataGridView1.SelectedRows[0].Cells["status_validasi"].Value.ToString();
+                if (statusSekarang == "Ditolak")
+                {
+                    MessageBox.Show("Laporan ini sudah berstatus 'Ditolak'!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (statusSekarang == "Diterima")
+                {
+                    DialogResult pastikan = MessageBox.Show("Laporan ini sebelumnya sudah DITERIMA. Yakin mau diubah jadi DITOLAK?",
+                                            "Konfirmasi Perubahan", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (pastikan == DialogResult.No) return;
+                }
+
                 string idLaporan = dataGridView1.SelectedRows[0].Cells["id_laporan"].Value.ToString();
                 string nama = dataGridView1.SelectedRows[0].Cells["nama_pelapor"].Value.ToString();
 
-                DialogResult dr = MessageBox.Show($"Yakin mau menolak laporan dari {nama}?", "Konfirmasi Tolak", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult dr = MessageBox.Show($"Yakin mau menolak laporan dari {nama}?", "Konfirmasi Tolak",
+                                  MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (dr == DialogResult.Yes)
                 {
@@ -137,11 +158,18 @@ namespace Sistem_pelaporan_keracunan_MBG
                             cmd.ExecuteNonQuery();
 
                             MessageBox.Show("Laporan telah ditolak.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            LoadDataLaporan();
+                            LoadDataLaporan(); 
                         }
                     }
-                    catch (Exception ex) { MessageBox.Show("Gagal tolak: " + ex.Message); }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Gagal update data: " + ex.Message);
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Pilih dulu data di tabel!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -174,6 +202,12 @@ namespace Sistem_pelaporan_keracunan_MBG
                     catch (Exception ex) { MessageBox.Show("Gagal hapus: " + ex.Message); }
                 }
             }
+            else 
+            {
+                MessageBox.Show("Pilih dulu data di tabel yang mau dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+
+
     }
 }
