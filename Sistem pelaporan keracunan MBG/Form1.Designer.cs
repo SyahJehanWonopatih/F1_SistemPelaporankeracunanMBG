@@ -79,7 +79,7 @@
             // txtBoxNamaLengkap
             // 
             this.txtBoxNamaLengkap.BackColor = System.Drawing.Color.White;
-            this.txtBoxNamaLengkap.ForeColor = System.Drawing.Color.Silver;
+            this.txtBoxNamaLengkap.ForeColor = System.Drawing.Color.Black;
             this.txtBoxNamaLengkap.Location = new System.Drawing.Point(164, 154);
             this.txtBoxNamaLengkap.Name = "txtBoxNamaLengkap";
             this.txtBoxNamaLengkap.Size = new System.Drawing.Size(326, 20);
@@ -89,7 +89,7 @@
             // txtBoxNomorKontak
             // 
             this.txtBoxNomorKontak.BackColor = System.Drawing.Color.White;
-            this.txtBoxNomorKontak.ForeColor = System.Drawing.Color.White;
+            this.txtBoxNomorKontak.ForeColor = System.Drawing.Color.Black;
             this.txtBoxNomorKontak.Location = new System.Drawing.Point(164, 218);
             this.txtBoxNomorKontak.Name = "txtBoxNomorKontak";
             this.txtBoxNomorKontak.Size = new System.Drawing.Size(326, 20);
@@ -123,7 +123,7 @@
             // comboBoxKotaKab
             // 
             this.comboBoxKotaKab.BackColor = System.Drawing.Color.White;
-            this.comboBoxKotaKab.ForeColor = System.Drawing.Color.White;
+            this.comboBoxKotaKab.ForeColor = System.Drawing.Color.Black;
             this.comboBoxKotaKab.FormattingEnabled = true;
             this.comboBoxKotaKab.Items.AddRange(new object[] {
             "Manado",

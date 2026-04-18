@@ -86,7 +86,7 @@
             // txtBoxLokasi
             // 
             this.txtBoxLokasi.BackColor = System.Drawing.Color.White;
-            this.txtBoxLokasi.ForeColor = System.Drawing.Color.White;
+            this.txtBoxLokasi.ForeColor = System.Drawing.Color.Black;
             this.txtBoxLokasi.Location = new System.Drawing.Point(166, 165);
             this.txtBoxLokasi.Name = "txtBoxLokasi";
             this.txtBoxLokasi.Size = new System.Drawing.Size(326, 20);

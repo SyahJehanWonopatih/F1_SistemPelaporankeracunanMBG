@@ -71,7 +71,7 @@
             // txtBoxPassword
             // 
             this.txtBoxPassword.BackColor = System.Drawing.Color.White;
-            this.txtBoxPassword.ForeColor = System.Drawing.Color.White;
+            this.txtBoxPassword.ForeColor = System.Drawing.Color.Black;
             this.txtBoxPassword.Location = new System.Drawing.Point(180, 224);
             this.txtBoxPassword.Name = "txtBoxPassword";
             this.txtBoxPassword.PasswordChar = '*';
@@ -83,7 +83,7 @@
             // txtBoxUserName
             // 
             this.txtBoxUserName.BackColor = System.Drawing.Color.White;
-            this.txtBoxUserName.ForeColor = System.Drawing.Color.White;
+            this.txtBoxUserName.ForeColor = System.Drawing.Color.Black;
             this.txtBoxUserName.Location = new System.Drawing.Point(180, 161);
             this.txtBoxUserName.Multiline = true;
             this.txtBoxUserName.Name = "txtBoxUserName";

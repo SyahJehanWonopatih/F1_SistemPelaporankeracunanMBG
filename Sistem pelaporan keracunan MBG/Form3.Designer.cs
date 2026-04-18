@@ -77,7 +77,7 @@
             // txtKorban
             // 
             this.txtKorban.BackColor = System.Drawing.Color.White;
-            this.txtKorban.ForeColor = System.Drawing.Color.White;
+            this.txtKorban.ForeColor = System.Drawing.Color.Black;
             this.txtKorban.Location = new System.Drawing.Point(186, 228);
             this.txtKorban.Multiline = true;
             this.txtKorban.Name = "txtKorban";
@@ -87,7 +87,7 @@
             // txtGejala
             // 
             this.txtGejala.BackColor = System.Drawing.Color.White;
-            this.txtGejala.ForeColor = System.Drawing.Color.White;
+            this.txtGejala.ForeColor = System.Drawing.Color.Black;
             this.txtGejala.Location = new System.Drawing.Point(186, 162);
             this.txtGejala.Multiline = true;
             this.txtGejala.Name = "txtGejala";
