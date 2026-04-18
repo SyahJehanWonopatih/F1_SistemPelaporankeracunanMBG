@@ -41,7 +41,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Silver;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(267, 9);
             this.label4.Name = "label4";
@@ -54,16 +54,16 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 265);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(660, 201);
+            this.dataGridView1.Size = new System.Drawing.Size(660, 248);
             this.dataGridView1.TabIndex = 27;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // btnLogout
             // 
-            this.btnLogout.BackColor = System.Drawing.Color.Silver;
+            this.btnLogout.BackColor = System.Drawing.Color.Transparent;
             this.btnLogout.Location = new System.Drawing.Point(577, 8);
             this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(95, 23);
+            this.btnLogout.Size = new System.Drawing.Size(95, 28);
             this.btnLogout.TabIndex = 31;
             this.btnLogout.Text = "Log out";
             this.btnLogout.UseVisualStyleBackColor = false;
@@ -71,7 +71,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.Silver;
+            this.button1.BackColor = System.Drawing.Color.Transparent;
             this.button1.Location = new System.Drawing.Point(12, 230);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(107, 23);
@@ -82,7 +82,7 @@
             // 
             // btnTerima
             // 
-            this.btnTerima.BackColor = System.Drawing.Color.Silver;
+            this.btnTerima.BackColor = System.Drawing.Color.Transparent;
             this.btnTerima.Location = new System.Drawing.Point(565, 230);
             this.btnTerima.Name = "btnTerima";
             this.btnTerima.Size = new System.Drawing.Size(107, 23);
@@ -93,7 +93,7 @@
             // 
             // btnTolak
             // 
-            this.btnTolak.BackColor = System.Drawing.Color.Silver;
+            this.btnTolak.BackColor = System.Drawing.Color.Transparent;
             this.btnTolak.Location = new System.Drawing.Point(389, 230);
             this.btnTolak.Name = "btnTolak";
             this.btnTolak.Size = new System.Drawing.Size(107, 23);
@@ -104,7 +104,7 @@
             // 
             // btnHapus
             // 
-            this.btnHapus.BackColor = System.Drawing.Color.Silver;
+            this.btnHapus.BackColor = System.Drawing.Color.Transparent;
             this.btnHapus.Location = new System.Drawing.Point(204, 230);
             this.btnHapus.Name = "btnHapus";
             this.btnHapus.Size = new System.Drawing.Size(107, 23);
@@ -117,8 +117,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(684, 478);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ClientSize = new System.Drawing.Size(684, 525);
             this.Controls.Add(this.btnHapus);
             this.Controls.Add(this.btnTolak);
             this.Controls.Add(this.btnTerima);

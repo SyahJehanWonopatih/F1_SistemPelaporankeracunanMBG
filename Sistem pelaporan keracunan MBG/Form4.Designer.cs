@@ -39,7 +39,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Silver;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(132, 129);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(55, 13);
@@ -49,7 +49,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Silver;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(296, 9);
             this.label4.Name = "label4";
@@ -60,7 +60,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Silver;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(132, 194);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 13);
@@ -70,18 +70,19 @@
             // 
             // txtBoxPassword
             // 
-            this.txtBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtBoxPassword.BackColor = System.Drawing.Color.White;
             this.txtBoxPassword.ForeColor = System.Drawing.Color.White;
             this.txtBoxPassword.Location = new System.Drawing.Point(180, 224);
-            this.txtBoxPassword.Multiline = true;
             this.txtBoxPassword.Name = "txtBoxPassword";
+            this.txtBoxPassword.PasswordChar = '*';
             this.txtBoxPassword.Size = new System.Drawing.Size(326, 20);
             this.txtBoxPassword.TabIndex = 27;
+            this.txtBoxPassword.UseSystemPasswordChar = true;
             this.txtBoxPassword.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // txtBoxUserName
             // 
-            this.txtBoxUserName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtBoxUserName.BackColor = System.Drawing.Color.White;
             this.txtBoxUserName.ForeColor = System.Drawing.Color.White;
             this.txtBoxUserName.Location = new System.Drawing.Point(180, 161);
             this.txtBoxUserName.Multiline = true;
@@ -92,7 +93,7 @@
             // 
             // btnLogin
             // 
-            this.btnLogin.BackColor = System.Drawing.Color.Silver;
+            this.btnLogin.BackColor = System.Drawing.Color.Transparent;
             this.btnLogin.Location = new System.Drawing.Point(290, 298);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(95, 23);
@@ -105,8 +106,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(686, 482);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ClientSize = new System.Drawing.Size(686, 523);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtBoxUserName);
             this.Controls.Add(this.txtBoxPassword);
