@@ -13,82 +13,223 @@ namespace Sistem_pelaporan_keracunan_MBG
 {
     public partial class Form1 : Form
     {
-        public static string namaLengkap = "";
-        public static string noKontak = "";
-        public static string kotaKab = "";
 
-        private readonly SqlConnection conn;
-        private readonly string connectionString =
-            "Data Source=TERABYTE\\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
+        private readonly Color BgDark = Color.FromArgb(15, 17, 26);
+        private readonly Color SidePanel = Color.FromArgb(22, 25, 41);
+        private readonly Color CardBg = Color.FromArgb(22, 25, 41);
+        private readonly Color CardHover = Color.FromArgb(30, 34, 55);
+        private readonly Color Border = Color.FromArgb(42, 45, 62);
+        private readonly Color AccentBlue = Color.FromArgb(99, 102, 241);
+        private readonly Color AccentGreen = Color.FromArgb(34, 197, 94);
+        private readonly Color TextPrimary = Color.FromArgb(226, 232, 240);
+        private readonly Color TextMuted = Color.FromArgb(74, 85, 104);
 
         public Form1()
         {
             InitializeComponent();
+            BuildUI();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void BuildUI()
         {
-            if (comboBoxKotaKab.Items.Count == 0)
+            this.Text = "Sistem Pelaporan MBG";
+            this.Size = new Size(860, 520);
+            this.MinimumSize = new Size(860, 520);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = BgDark;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Font = new Font("Segoe UI", 9f);
+            this.Controls.Clear();
+
+            // ── Sidebar ──────────────────────────────────────────────
+            Panel sidebar = new Panel
             {
-                comboBoxKotaKab.Items.Add("Manado");
-                comboBoxKotaKab.Items.Add("Kota Yogyakarta");
-                comboBoxKotaKab.Items.Add("Sleman");
-                comboBoxKotaKab.Items.Add("Bandung");
-                comboBoxKotaKab.Items.Add("Jakarta");
-            }
-        }
+                Size = new Size(240, this.ClientSize.Height),
+                Location = new Point(0, 0),
+                BackColor = SidePanel
+            };
+            this.Controls.Add(sidebar);
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtBoxNamaLengkap.Text) ||
-                string.IsNullOrEmpty(txtBoxNomorKontak.Text) ||
-                comboBoxKotaKab.SelectedIndex == -1)
+            Panel logoBox = new Panel
             {
-                MessageBox.Show("Isi semua datanya!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            namaLengkap = txtBoxNamaLengkap.Text;
-            noKontak = txtBoxNomorKontak.Text;
-            kotaKab = comboBoxKotaKab.Text;
+                Size = new Size(56, 56),
+                Location = new Point(92, 60),
+                BackColor = Color.FromArgb(30, 36, 64)
+            };
+            sidebar.Controls.Add(logoBox);
 
-            Form2 formKejadian = new Form2();
-            formKejadian.Show();
-            this.Hide();
+            Label logoIcon = new Label
+            {
+                Text = "✦",
+                Font = new Font("Segoe UI", 20f, FontStyle.Bold),
+                ForeColor = AccentBlue,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            };
+            logoBox.Controls.Add(logoIcon);
+
+            Label appTitle = new Label
+            {
+                Text = "Sistem Pelaporan\nMBG",
+                Font = new Font("Segoe UI", 13f, FontStyle.Bold),
+                ForeColor = TextPrimary,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(200, 58),
+                Location = new Point(20, 130),
+                BackColor = Color.Transparent
+            };
+            sidebar.Controls.Add(appTitle);
+
+            Label appSub = new Label
+            {
+                Text = "Makan Bergizi Gratis",
+                Font = new Font("Segoe UI", 8f),
+                ForeColor = TextMuted,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(200, 20),
+                Location = new Point(20, 190),
+                BackColor = Color.Transparent
+            };
+            sidebar.Controls.Add(appSub);
+
+            Panel divider = new Panel
+            {
+                Size = new Size(140, 1),
+                Location = new Point(50, 224),
+                BackColor = Border
+            };
+            sidebar.Controls.Add(divider);
+
+            Label version = new Label
+            {
+                Text = "v1.0.0  •  2025",
+                Font = new Font("Segoe UI", 7.5f),
+                ForeColor = Color.FromArgb(45, 51, 72),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(200, 20),
+                Location = new Point(20, this.ClientSize.Height - 36),
+                BackColor = Color.Transparent
+            };
+            sidebar.Controls.Add(version);
+
+            // ── Main Content ─────────────────────────────────────────
+            Panel main = new Panel
+            {
+                Size = new Size(this.ClientSize.Width - 240, this.ClientSize.Height),
+                Location = new Point(240, 0),
+                BackColor = BgDark
+            };
+            this.Controls.Add(main);
+
+            Label greeting = new Label
+            {
+                Text = "Selamat Datang",
+                Font = new Font("Segoe UI", 20f, FontStyle.Bold),
+                ForeColor = TextPrimary,
+                Location = new Point(50, 90),
+                Size = new Size(400, 40),
+                BackColor = Color.Transparent
+            };
+            main.Controls.Add(greeting);
+
+            Label subGreet = new Label
+            {
+                Text = "Pilih opsi di bawah untuk melanjutkan.",
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = TextMuted,
+                Location = new Point(50, 134),
+                Size = new Size(400, 22),
+                BackColor = Color.Transparent
+            };
+            main.Controls.Add(subGreet);
+
+            Panel cardAdmin = MakeCard(main, 50, 185,
+                "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
+            cardAdmin.Click += (s, e) => { new Form2().ShowDialog(); this.Hide(); };
+            foreach (Control c in cardAdmin.Controls)
+                c.Click += (s, e) => { new Form2().ShowDialog(); this.Hide(); };
+
+            Panel cardLapor = MakeCard(main, 50, 295,
+     "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
+            cardLapor.Click += (s, e) => { new Form4().ShowDialog(); this.Hide(); };
+            foreach (Control c in cardLapor.Controls)
+                c.Click += (s, e) => { new Form4().ShowDialog(); this.Hide(); };
+        }
+
+        private Panel MakeCard(Panel parent, int x, int y, string title, string desc, Color accent)
+        {
+            Panel card = new Panel
+            {
+                Size = new Size(500, 88),
+                Location = new Point(x, y),
+                BackColor = CardBg,
+                Cursor = Cursors.Hand,
+            };
+
+            // Accent bar kiri
+            Panel bar = new Panel
+            {
+                Size = new Size(4, 88),
+                Location = new Point(0, 0),
+                BackColor = accent,
+            };
+            card.Controls.Add(bar);
+
+            // Icon box
+            Panel iconBox = new Panel
+            {
+                Size = new Size(40, 40),
+                Location = new Point(22, 24),
+                BackColor = Color.FromArgb(accent.R / 6, accent.G / 6, accent.B / 6 + 10),
+            };
+            card.Controls.Add(iconBox);
+
+            Label iconLbl = new Label
+            {
+                Text = accent == Color.FromArgb(99, 102, 241) ? "⚿" : "✎",
+                Font = new Font("Segoe UI", 16f),
+                ForeColor = accent,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent,
+            };
+            iconBox.Controls.Add(iconLbl);
+
+            Label titleLbl = new Label
+            {
+                Text = title,
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold),
+                ForeColor = TextPrimary,
+                Location = new Point(76, 18),
+                Size = new Size(380, 26),
+                BackColor = Color.Transparent,
+            };
+            card.Controls.Add(titleLbl);
+
+            Label descLbl = new Label
+            {
+                Text = desc,
+                Font = new Font("Segoe UI", 9f),
+                ForeColor = TextMuted,
+                Location = new Point(76, 48),
+                Size = new Size(380, 20),
+                BackColor = Color.Transparent,
+            };
+            card.Controls.Add(descLbl);
+
+            // Hover effect
+            card.MouseEnter += (s, e) => card.BackColor = CardHover;
+            card.MouseLeave += (s, e) => card.BackColor = CardBg;
+
+            parent.Controls.Add(card);
+            return card;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form4 login = new Form4();
+            Form2 login = new Form2();
             login.ShowDialog();
             this.Hide();
 
@@ -97,6 +238,13 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Form4 Report = new Form4();
+            Report.ShowDialog();
+            this.Hide();
         }
     }
 }

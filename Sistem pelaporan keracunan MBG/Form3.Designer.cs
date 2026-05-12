@@ -28,17 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtKorban = new System.Windows.Forms.TextBox();
-            this.txtGejala = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnKembali = new System.Windows.Forms.Button();
-            this.btnLaporan = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.btnLogout = new System.Windows.Forms.Button();
+            this.dgvLaporan = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnHapus = new System.Windows.Forms.Button();
+            this.btnTolakLaporan = new System.Windows.Forms.Button();
+            this.btnTerima = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLaporan)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -46,95 +43,75 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 9);
+            this.label4.Location = new System.Drawing.Point(255, 51);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(162, 18);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Sistem pelaporan MBG";
+            this.label4.TabIndex = 41;
+            this.label4.Text = "Monitoring Admin MBG";
             // 
-            // label3
+            // btnLogout
             // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(75, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 18);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "Data Korban";
+            this.btnLogout.BackColor = System.Drawing.Color.Transparent;
+            this.btnLogout.Location = new System.Drawing.Point(556, 41);
+            this.btnLogout.Name = "btnLogout";
+            this.btnLogout.Size = new System.Drawing.Size(95, 28);
+            this.btnLogout.TabIndex = 42;
+            this.btnLogout.Text = "Log out";
+            this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
-            // label1
+            // dgvLaporan
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(126, 136);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "Deskripsi Gejala";
+            this.dgvLaporan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLaporan.Location = new System.Drawing.Point(15, 329);
+            this.dgvLaporan.Name = "dgvLaporan";
+            this.dgvLaporan.Size = new System.Drawing.Size(660, 183);
+            this.dgvLaporan.TabIndex = 43;
+            this.dgvLaporan.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // txtKorban
+            // button1
             // 
-            this.txtKorban.BackColor = System.Drawing.Color.White;
-            this.txtKorban.ForeColor = System.Drawing.Color.Black;
-            this.txtKorban.Location = new System.Drawing.Point(186, 228);
-            this.txtKorban.Multiline = true;
-            this.txtKorban.Name = "txtKorban";
-            this.txtKorban.Size = new System.Drawing.Size(326, 20);
-            this.txtKorban.TabIndex = 25;
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.Location = new System.Drawing.Point(45, 267);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 23);
+            this.button1.TabIndex = 44;
+            this.button1.Text = "Koneksi Database";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // txtGejala
+            // btnHapus
             // 
-            this.txtGejala.BackColor = System.Drawing.Color.White;
-            this.txtGejala.ForeColor = System.Drawing.Color.Black;
-            this.txtGejala.Location = new System.Drawing.Point(186, 162);
-            this.txtGejala.Multiline = true;
-            this.txtGejala.Name = "txtGejala";
-            this.txtGejala.Size = new System.Drawing.Size(326, 20);
-            this.txtGejala.TabIndex = 26;
+            this.btnHapus.BackColor = System.Drawing.Color.Transparent;
+            this.btnHapus.Location = new System.Drawing.Point(227, 267);
+            this.btnHapus.Name = "btnHapus";
+            this.btnHapus.Size = new System.Drawing.Size(107, 23);
+            this.btnHapus.TabIndex = 45;
+            this.btnHapus.Text = "Hapus Laporan";
+            this.btnHapus.UseVisualStyleBackColor = false;
+            this.btnHapus.Click += new System.EventHandler(this.btnHapus_Click);
             // 
-            // label6
+            // btnTolakLaporan
             // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(126, 202);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 13);
-            this.label6.TabIndex = 27;
-            this.label6.Text = "Jumlah Korban";
+            this.btnTolakLaporan.BackColor = System.Drawing.Color.Transparent;
+            this.btnTolakLaporan.Location = new System.Drawing.Point(396, 267);
+            this.btnTolakLaporan.Name = "btnTolakLaporan";
+            this.btnTolakLaporan.Size = new System.Drawing.Size(107, 23);
+            this.btnTolakLaporan.TabIndex = 46;
+            this.btnTolakLaporan.Text = "Tolak Laporan";
+            this.btnTolakLaporan.UseVisualStyleBackColor = false;
+            this.btnTolakLaporan.Click += new System.EventHandler(this.btnTolakLaporan_Click);
             // 
-            // btnKembali
+            // btnTerima
             // 
-            this.btnKembali.BackColor = System.Drawing.Color.Transparent;
-            this.btnKembali.Location = new System.Drawing.Point(99, 363);
-            this.btnKembali.Name = "btnKembali";
-            this.btnKembali.Size = new System.Drawing.Size(75, 23);
-            this.btnKembali.TabIndex = 28;
-            this.btnKembali.Text = "Kembali";
-            this.btnKembali.UseVisualStyleBackColor = false;
-            this.btnKembali.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // btnLaporan
-            // 
-            this.btnLaporan.BackColor = System.Drawing.Color.Transparent;
-            this.btnLaporan.Location = new System.Drawing.Point(489, 363);
-            this.btnLaporan.Name = "btnLaporan";
-            this.btnLaporan.Size = new System.Drawing.Size(95, 23);
-            this.btnLaporan.TabIndex = 29;
-            this.btnLaporan.Text = "Kirim Laporan";
-            this.btnLaporan.UseVisualStyleBackColor = false;
-            this.btnLaporan.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(258, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 109);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
+            this.btnTerima.BackColor = System.Drawing.Color.Transparent;
+            this.btnTerima.Location = new System.Drawing.Point(544, 267);
+            this.btnTerima.Name = "btnTerima";
+            this.btnTerima.Size = new System.Drawing.Size(107, 23);
+            this.btnTerima.TabIndex = 47;
+            this.btnTerima.Text = "Terima Laporan";
+            this.btnTerima.UseVisualStyleBackColor = false;
+            this.btnTerima.Click += new System.EventHandler(this.btnTerima_Click);
             // 
             // Form3
             // 
@@ -142,19 +119,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(687, 524);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnLaporan);
-            this.Controls.Add(this.btnKembali);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtGejala);
-            this.Controls.Add(this.txtKorban);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnTerima);
+            this.Controls.Add(this.btnTolakLaporan);
+            this.Controls.Add(this.btnHapus);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dgvLaporan);
+            this.Controls.Add(this.btnLogout);
             this.Controls.Add(this.label4);
             this.Name = "Form3";
             this.Text = "Form3";
             this.Load += new System.EventHandler(this.Form3_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLaporan)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,13 +138,11 @@
         #endregion
 
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtKorban;
-        private System.Windows.Forms.TextBox txtGejala;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button btnKembali;
-        private System.Windows.Forms.Button btnLaporan;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnLogout;
+        private System.Windows.Forms.DataGridView dgvLaporan;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnHapus;
+        private System.Windows.Forms.Button btnTolakLaporan;
+        private System.Windows.Forms.Button btnTerima;
     }
 }
