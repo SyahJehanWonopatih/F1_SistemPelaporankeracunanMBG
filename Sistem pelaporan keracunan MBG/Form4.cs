@@ -411,6 +411,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnBack.Click += (s, e) => this.Close();
+            new Form1().Show();
             card.Controls.Add(btnBack);
 
             Button btnKirim = new Button

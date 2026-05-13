@@ -152,7 +152,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 c.Click += (s, e) => { new Form2().ShowDialog(); this.Hide(); };
 
             Panel cardLapor = MakeCard(main, 50, 295,
-     "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
+            "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
             cardLapor.Click += (s, e) => { new Form4().ShowDialog(); this.Hide(); };
             foreach (Control c in cardLapor.Controls)
                 c.Click += (s, e) => { new Form4().ShowDialog(); this.Hide(); };

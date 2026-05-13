@@ -313,7 +313,9 @@ namespace Sistem_pelaporan_keracunan_MBG
             };
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnBack.Click += (s, e) => { this.Close(); };
+            btnBack.Click += (s, e) => { this.Close();
+            new Form1().Show();
+            };
             main.Controls.Add(btnBack);
         }
 

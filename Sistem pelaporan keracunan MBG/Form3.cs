@@ -53,21 +53,17 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void btnHapus_Click(object sender, EventArgs e)
         {
-            if (dgvLaporan.SelectedRows.Count == 0)
-            {
+            if (dgvRaporan.SelectedRows.Count == 0)
+            {  // ← ganti
                 MessageBox.Show("Pilih laporan yang ingin dihapus.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            var confirm = MessageBox.Show(
-                "Yakin ingin menghapus laporan ini?", "Konfirmasi",
+            var confirm = MessageBox.Show("Yakin ingin menghapus laporan ini?", "Konfirmasi",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
             if (confirm != DialogResult.Yes) return;
 
-            var id = dgvLaporan.SelectedRows[0].Cells["id_laporan"].Value;
-
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;  // ← ganti
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -75,8 +71,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                     "DELETE FROM laporan WHERE id_laporan = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                    conn.Open(); cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Laporan berhasil dihapus.", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -91,15 +86,13 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void btnTolakLaporan_Click(object sender, EventArgs e)
         {
-            if (dgvLaporan.SelectedRows.Count == 0)
-            {
+            if (dgvRaporan.SelectedRows.Count == 0)
+            {  // ← ganti
                 MessageBox.Show("Pilih laporan yang ingin ditolak.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            var id = dgvLaporan.SelectedRows[0].Cells["id_laporan"].Value;
-
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;  // ← ganti
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -107,8 +100,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                     "UPDATE laporan SET status_validasi = 'Ditolak' WHERE id_laporan = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                    conn.Open(); cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Laporan berhasil ditolak.", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -123,15 +115,13 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void btnTerima_Click(object sender, EventArgs e)
         {
-            if (dgvLaporan.SelectedRows.Count == 0)
-            {
+            if (dgvRaporan.SelectedRows.Count == 0)
+            {  // ← ganti dgvLaporan → dgvRaporan
                 MessageBox.Show("Pilih laporan yang ingin diterima.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            var id = dgvLaporan.SelectedRows[0].Cells["id_laporan"].Value;
-
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;  // ← sama
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -139,8 +129,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                     "UPDATE laporan SET status_validasi = 'Di Proses' WHERE id_laporan = @id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                    conn.Open(); cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Laporan berhasil diproses.", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
