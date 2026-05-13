@@ -317,6 +317,9 @@ namespace Sistem_pelaporan_keracunan_MBG
             main.Controls.Add(btnBack);
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Form1().Show();
+        }
     }
 }

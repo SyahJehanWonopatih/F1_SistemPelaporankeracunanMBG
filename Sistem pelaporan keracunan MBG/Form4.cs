@@ -55,7 +55,7 @@ namespace Sistem_pelaporan_keracunan_MBG
         string.IsNullOrWhiteSpace(_txtLokasi.Text) ||
         string.IsNullOrWhiteSpace(_txtGejala.Text) ||
         string.IsNullOrWhiteSpace(_txtKorban.Text))
-    {
+        {
                 MessageBox.Show("Semua field harus diisi.", "Peringatan",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -102,6 +102,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 MessageBox.Show("Laporan berhasil dikirim!\nStatus: Pending.",
                     "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
+                new Form1().Show();
             }
             catch (Exception ex)
             {
@@ -118,6 +119,11 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void txtGejala_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new Form1().Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -247,115 +253,150 @@ namespace Sistem_pelaporan_keracunan_MBG
             });
 
             // ═══ ISI MAIN ════════════════════════════════════════════
-            main.Controls.Add(new Label
+
+            // Card container — center di tengah main panel
+            Panel card = new Panel
+            {
+                BackColor = Color.FromArgb(22, 25, 41),
+                Size = new Size(680, 460),
+                Anchor = AnchorStyles.None  // biar bisa di-center
+            };
+
+            // Center card saat form resize
+            main.Resize += (s, e) => {
+                card.Location = new Point(
+                    (main.ClientSize.Width - card.Width) / 2,
+                    (main.ClientSize.Height - card.Height) / 2
+                );
+            };
+            // Set posisi awal
+            card.Location = new Point(
+                (main.ClientSize.Width - 680) / 2,
+                (main.ClientSize.Height - 460) / 2
+            );
+            main.Controls.Add(card);
+
+            // Heading di dalam card
+            card.Controls.Add(new Label
             {
                 Text = "Form Laporan Keracunan",
-                Font = new Font("Segoe UI", 18f, FontStyle.Bold),
+                Font = new Font("Segoe UI", 16f, FontStyle.Bold),
                 ForeColor = TextPrimary,
-                Location = new Point(0, 0),
-                Size = new Size(500, 38),
+                Location = new Point(30, 20),
+                Size = new Size(500, 34),
                 BackColor = Color.Transparent
             });
 
-            main.Controls.Add(new Label
+            card.Controls.Add(new Label
             {
                 Text = "Isi data dengan lengkap dan benar.",
-                Font = new Font("Segoe UI", 9.5f),
+                Font = new Font("Segoe UI", 9f),
                 ForeColor = TextMuted,
-                Location = new Point(0, 40),
-                Size = new Size(400, 22),
+                Location = new Point(30, 56),
+                Size = new Size(400, 20),
                 BackColor = Color.Transparent
             });
 
-            int col1 = 0, col2 = 320, startY = 80, gap = 90;
+            // Divider
+            card.Controls.Add(new Panel
+            {
+                Size = new Size(620, 1),
+                Location = new Point(30, 84),
+                BackColor = Border
+            });
+
+            int col1 = 30, col2 = 360, startY = 100, gap = 88;
 
             // ── Kolom Kiri ───────────────────────────────────────────
-            AddLabel(main, "Nama Pelapor", col1, startY);
-            _txtNama = AddTextBox(main, col1, startY + 26, 280);
+            AddLabel(card, "Nama Pelapor", col1, startY);
+            _txtNama = AddTextBox(card, col1, startY + 24, 290);
             _txtNama.KeyPress += (s, e) => {
                 bool ok = char.IsLetter(e.KeyChar) || e.KeyChar == ' '
                        || e.KeyChar == (char)Keys.Back;
                 if (!ok) e.Handled = true;
             };
 
-            AddLabel(main, "Nomor Kontak", col1, startY + gap);
-            _txtKontak = AddTextBox(main, col1, startY + gap + 26, 280);
+            AddLabel(card, "Nomor Kontak", col1, startY + gap);
+            _txtKontak = AddTextBox(card, col1, startY + gap + 24, 290);
             _txtKontak.KeyPress += (s, e) => {
                 bool ok = char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back;
                 if (!ok) e.Handled = true;
             };
 
-            AddLabel(main, "Kota / Kabupaten", col1, startY + gap * 2);
+            AddLabel(card, "Kota / Kabupaten", col1, startY + gap * 2);
             _cmbKota = new ComboBox
             {
-                Location = new Point(col1, startY + gap * 2 + 26),
-                Size = new Size(280, 44),
+                Location = new Point(col1, startY + gap * 2 + 24),
+                Size = new Size(290, 36),
                 BackColor = InputBg,
                 ForeColor = TextPrimary,
                 Font = new Font("Segoe UI", 10f),
                 FlatStyle = FlatStyle.Flat,
-                DropDownStyle = ComboBoxStyle.DropDownList,
-                Anchor = AnchorStyles.Top | AnchorStyles.Left
+                DropDownStyle = ComboBoxStyle.DropDownList
             };
             _cmbKota.Items.AddRange(new object[] {
-                "Yogyakarta", "Jakarta", "Bandung",
-                "Manado", "Surabaya", "Mojokerto", "Riau"
-            });
+    "Yogyakarta", "Jakarta", "Bandung",
+    "Manado", "Surabaya", "Mojokerto", "Riau"
+});
             _cmbKota.SelectedIndex = 0;
-            main.Controls.Add(_cmbKota);
+            card.Controls.Add(_cmbKota);
 
-            AddLabel(main, "Jumlah Korban", col1, startY + gap * 3);
-            _txtKorban = AddTextBox(main, col1, startY + gap * 3 + 26, 280);
+            AddLabel(card, "Jumlah Korban", col1, startY + gap * 3);
+            _txtKorban = AddTextBox(card, col1, startY + gap * 3 + 24, 290);
             _txtKorban.KeyPress += (s, e) => {
                 bool ok = char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back;
                 if (!ok) e.Handled = true;
             };
 
             // ── Kolom Kanan ──────────────────────────────────────────
-            AddLabel(main, "Lokasi Kejadian", col2, startY);
-            _txtLokasi = AddTextBox(main, col2, startY + 26, 280);
+            AddLabel(card, "Lokasi Kejadian", col2, startY);
+            _txtLokasi = AddTextBox(card, col2, startY + 24, 290);
             _txtLokasi.KeyPress += (s, e) => {
                 bool ok = char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == ' '
                        || e.KeyChar == (char)Keys.Back;
                 if (!ok) e.Handled = true;
             };
 
-            AddLabel(main, "Tanggal Kejadian", col2, startY + gap);
+            AddLabel(card, "Tanggal Kejadian", col2, startY + gap);
             _dtpTanggal = new DateTimePicker
             {
-                Location = new Point(col2, startY + gap + 26),
-                Size = new Size(280, 44),
+                Location = new Point(col2, startY + gap + 24),
+                Size = new Size(290, 36),
                 Font = new Font("Segoe UI", 10f),
                 Format = DateTimePickerFormat.Long,
                 MaxDate = DateTime.Today,
                 MinDate = DateTime.Today.AddDays(-7),
-                Value = DateTime.Today,
-                Anchor = AnchorStyles.Top | AnchorStyles.Left
+                Value = DateTime.Today
             };
-            main.Controls.Add(_dtpTanggal);
+            card.Controls.Add(_dtpTanggal);
 
-            AddLabel(main, "Deskripsi Gejala", col2, startY + gap * 2);
+            AddLabel(card, "Deskripsi Gejala", col2, startY + gap * 2);
             _txtGejala = new TextBox
             {
-                Location = new Point(col2, startY + gap * 2 + 26),
-                Size = new Size(280, 80),
+                Location = new Point(col2, startY + gap * 2 + 24),
+                Size = new Size(290, 80),
                 BackColor = InputBg,
                 ForeColor = TextPrimary,
                 BorderStyle = BorderStyle.FixedSingle,
                 Font = new Font("Segoe UI", 10f),
-                Multiline = true,
-                Anchor = AnchorStyles.Top | AnchorStyles.Left
+                Multiline = true
             };
             _txtGejala.KeyPress += (s, e) => {
                 bool ok = char.IsLetter(e.KeyChar) || e.KeyChar == ' '
                        || e.KeyChar == (char)Keys.Back || e.KeyChar == '\r';
                 if (!ok) e.Handled = true;
             };
-            main.Controls.Add(_txtGejala);
+            card.Controls.Add(_txtGejala);
+
+            // ── Divider bawah ─────────────────────────────────────────
+            card.Controls.Add(new Panel
+            {
+                Size = new Size(620, 1),
+                Location = new Point(30, 390),
+                BackColor = Border
+            });
 
             // ── Tombol ───────────────────────────────────────────────
-            int btnY = startY + gap * 4 + 10;
-
             Button btnBack = new Button
             {
                 Text = "← Kembali",
@@ -363,14 +404,14 @@ namespace Sistem_pelaporan_keracunan_MBG
                 ForeColor = TextMuted,
                 BackColor = Color.Transparent,
                 FlatStyle = FlatStyle.Flat,
-                Size = new Size(120, 44),
-                Location = new Point(col1, btnY),
+                Size = new Size(120, 40),
+                Location = new Point(30, 406),
                 Cursor = Cursors.Hand
             };
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnBack.Click += (s, e) => this.Close();
-            main.Controls.Add(btnBack);
+            card.Controls.Add(btnBack);
 
             Button btnKirim = new Button
             {
@@ -379,14 +420,14 @@ namespace Sistem_pelaporan_keracunan_MBG
                 ForeColor = Color.White,
                 BackColor = AccentGreen,
                 FlatStyle = FlatStyle.Flat,
-                Size = new Size(180, 44),
-                Location = new Point(col2 + 100, btnY),
+                Size = new Size(180, 40),
+                Location = new Point(470, 406),
                 Cursor = Cursors.Hand
             };
             btnKirim.FlatAppearance.BorderSize = 0;
             btnKirim.FlatAppearance.MouseOverBackColor = Color.FromArgb(22, 163, 74);
             btnKirim.Click += button1_Click;
-            main.Controls.Add(btnKirim);
+            card.Controls.Add(btnKirim);
         }
 
         // ── Helper label ─────────────────────────────────────────────
