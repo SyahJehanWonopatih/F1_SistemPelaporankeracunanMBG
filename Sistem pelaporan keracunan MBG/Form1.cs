@@ -146,16 +146,23 @@ namespace Sistem_pelaporan_keracunan_MBG
             main.Controls.Add(subGreet);
 
             Panel cardAdmin = MakeCard(main, 50, 185,
-                "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
-            cardAdmin.Click += (s, e) => { new Form2().ShowDialog(); this.Hide(); };
-            foreach (Control c in cardAdmin.Controls)
-                c.Click += (s, e) => { new Form2().ShowDialog(); this.Hide(); };
+    "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
+            EventHandler openAdmin = (s, e) => {
+                this.Hide();
+                using (var f = new Form2())
+                {
+                    f.ShowDialog();
+                    if (!f.LoginSuccess) this.Show(); 
+                }
+            };
+            cardAdmin.Click += openAdmin;
+            foreach (Control c in cardAdmin.Controls) c.Click += openAdmin;
 
             Panel cardLapor = MakeCard(main, 50, 295,
             "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
-            cardLapor.Click += (s, e) => { new Form4().ShowDialog(); this.Hide(); };
+            cardLapor.Click += (s, e) => { this.Hide(); new Form4().ShowDialog(); this.Show(); };
             foreach (Control c in cardLapor.Controls)
-                c.Click += (s, e) => { new Form4().ShowDialog(); this.Hide(); };
+                c.Click += (s, e) => { this.Hide(); new Form4().ShowDialog(); this.Show(); };
         }
 
         private Panel MakeCard(Panel parent, int x, int y, string title, string desc, Color accent)
@@ -229,9 +236,7 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form2 login = new Form2();
-            login.ShowDialog();
-            this.Hide();
+           
 
         }
 

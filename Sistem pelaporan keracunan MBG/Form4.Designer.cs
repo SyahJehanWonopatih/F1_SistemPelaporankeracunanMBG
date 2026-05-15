@@ -42,8 +42,8 @@
             this.txtNama = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmbKota = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label4
@@ -182,16 +182,6 @@
             this.cmbKota.TabIndex = 46;
             this.cmbKota.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(562, 378);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 23);
-            this.button1.TabIndex = 47;
-            this.button1.Text = "Kirim Laporan ";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(155, 378);
@@ -202,13 +192,23 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(540, 378);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(129, 23);
+            this.button3.TabIndex = 49;
+            this.button3.Text = "Kirim Laporan ";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.cmbKota);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtNama);
@@ -247,7 +247,7 @@
         private System.Windows.Forms.TextBox txtNama;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cmbKota;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }

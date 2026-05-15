@@ -50,12 +50,12 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(_txtNama.Text) ||
+            if (string.IsNullOrWhiteSpace(_txtNama.Text) ||
         string.IsNullOrWhiteSpace(_txtKontak.Text) ||
         string.IsNullOrWhiteSpace(_txtLokasi.Text) ||
         string.IsNullOrWhiteSpace(_txtGejala.Text) ||
         string.IsNullOrWhiteSpace(_txtKorban.Text))
-        {
+            {
                 MessageBox.Show("Semua field harus diisi.", "Peringatan",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -67,46 +67,43 @@ namespace Sistem_pelaporan_keracunan_MBG
                 {
                     conn.Open();
 
-                    string qMasyarakat = @"
+                    // Insert Masyarakat dulu (parameterized tetap aman)
+                    string qMasy = @"
                 INSERT INTO Masyarakat (nama_pelapor, kontak, alamat, kota_kab)
                 VALUES (@nama, @kontak, @alamat, @kota);
                 SELECT SCOPE_IDENTITY();";
 
-                    int idMasyarakat;
-                    using (SqlCommand cmd = new SqlCommand(qMasyarakat, conn))
+                    int idMasy;
+                    using (SqlCommand cmd = new SqlCommand(qMasy, conn))
                     {
                         cmd.Parameters.AddWithValue("@nama", _txtNama.Text.Trim());
                         cmd.Parameters.AddWithValue("@kontak", _txtKontak.Text.Trim());
                         cmd.Parameters.AddWithValue("@alamat", _txtLokasi.Text.Trim());
                         cmd.Parameters.AddWithValue("@kota", _cmbKota.SelectedItem.ToString());
-                        idMasyarakat = Convert.ToInt32(cmd.ExecuteScalar());
+                        idMasy = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
-                    string qLaporan = @"
-                INSERT INTO Laporan
-                    (id_masyarakat, lokasi_kejadian, tanggal, jumlah_korban, gejala, status_validasi)
-                VALUES
-                    (@idMasy, @lokasi, @tanggal, @korban, @gejala, 'Pending')";
+                    // ❌ TIDAK AMAN — gejala langsung di-concat ke query
+                    string gejalaInput = _txtGejala.Text;
+                    string queryUnsafe =
+                        "INSERT INTO Laporan (id_masyarakat, lokasi_kejadian, tanggal, jumlah_korban, gejala, status_validasi) " +
+                        "VALUES (" + idMasy + ", '" + _txtLokasi.Text.Trim() + "', '" +
+                        _dtpTanggal.Value.Date.ToString("yyyy-MM-dd") + "', " +
+                        _txtKorban.Text + ", '" + gejalaInput + "', 'Pending')";
 
-                    using (SqlCommand cmd = new SqlCommand(qLaporan, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@idMasy", idMasyarakat);
-                        cmd.Parameters.AddWithValue("@lokasi", _txtLokasi.Text.Trim());
-                        cmd.Parameters.AddWithValue("@tanggal", _dtpTanggal.Value.Date);
-                        cmd.Parameters.AddWithValue("@korban", int.Parse(_txtKorban.Text));
-                        cmd.Parameters.AddWithValue("@gejala", _txtGejala.Text.Trim());
+                    using (SqlCommand cmd = new SqlCommand(queryUnsafe, conn))
                         cmd.ExecuteNonQuery();
-                    }
                 }
 
-                MessageBox.Show("Laporan berhasil dikirim!\nStatus: Pending.",
-                    "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Laporan dikirim (TIDAK AMAN)!\n\nQuery yang dijalankan menggunakan string concatenation.\n" +
+                    "Coba isi Deskripsi Gejala dengan:\n'; UPDATE Laporan SET gejala='HACKED' WHERE '1'='1",
+                    "⚠ Tidak Aman", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
-                new Form1().Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal kirim laporan:\n" + ex.Message, "Error",
+                MessageBox.Show("Error:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -124,6 +121,48 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void button2_Click(object sender, EventArgs e)
         {
             new Form1().Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(_txtNama.Text) ||
+                string.IsNullOrWhiteSpace(_txtKontak.Text) ||
+                string.IsNullOrWhiteSpace(_txtLokasi.Text) ||
+                string.IsNullOrWhiteSpace(_txtGejala.Text) ||
+                string.IsNullOrWhiteSpace(_txtKorban.Text))
+            {
+                MessageBox.Show("Semua field harus diisi.", "Peringatan",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_InsertLaporan", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@nama_pelapor", _txtNama.Text.Trim());
+                    cmd.Parameters.AddWithValue("@kontak", _txtKontak.Text.Trim());
+                    cmd.Parameters.AddWithValue("@alamat", _txtLokasi.Text.Trim());
+                    cmd.Parameters.AddWithValue("@kota_kab", _cmbKota.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@lokasi_kejadian", _txtLokasi.Text.Trim());
+                    cmd.Parameters.AddWithValue("@tanggal", _dtpTanggal.Value.Date);
+                    cmd.Parameters.AddWithValue("@jumlah_korban", int.Parse(_txtKorban.Text));
+                    cmd.Parameters.AddWithValue("@gejala", _txtGejala.Text.Trim());
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Laporan berhasil dikirim!\nStatus: Pending.",
+                    "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal kirim laporan:\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -258,8 +297,8 @@ namespace Sistem_pelaporan_keracunan_MBG
             Panel card = new Panel
             {
                 BackColor = Color.FromArgb(22, 25, 41),
-                Size = new Size(680, 460),
-                Anchor = AnchorStyles.None  // biar bisa di-center
+                Size = new Size(680, 530), // ← 460 → 530
+                Anchor = AnchorStyles.None
             };
 
             // Center card saat form resize
@@ -335,8 +374,8 @@ namespace Sistem_pelaporan_keracunan_MBG
                 DropDownStyle = ComboBoxStyle.DropDownList
             };
             _cmbKota.Items.AddRange(new object[] {
-    "Yogyakarta", "Jakarta", "Bandung",
-    "Manado", "Surabaya", "Mojokerto", "Riau"
+            "Yogyakarta", "Jakarta", "Bandung",
+            "Manado", "Surabaya", "Mojokerto", "Riau"
 });
             _cmbKota.SelectedIndex = 0;
             card.Controls.Add(_cmbKota);
@@ -397,6 +436,8 @@ namespace Sistem_pelaporan_keracunan_MBG
             });
 
             // ── Tombol ───────────────────────────────────────────────
+            int btnY = startY + gap * 4 + 10;
+
             Button btnBack = new Button
             {
                 Text = "← Kembali",
@@ -404,14 +445,13 @@ namespace Sistem_pelaporan_keracunan_MBG
                 ForeColor = TextMuted,
                 BackColor = Color.Transparent,
                 FlatStyle = FlatStyle.Flat,
-                Size = new Size(120, 40),
-                Location = new Point(30, 406),
+                Size = new Size(120, 44),
+                Location = new Point(30, btnY),
                 Cursor = Cursors.Hand
             };
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnBack.Click += (s, e) => this.Close();
-            new Form1().Show();
             card.Controls.Add(btnBack);
 
             Button btnKirim = new Button
@@ -421,14 +461,16 @@ namespace Sistem_pelaporan_keracunan_MBG
                 ForeColor = Color.White,
                 BackColor = AccentGreen,
                 FlatStyle = FlatStyle.Flat,
-                Size = new Size(180, 40),
-                Location = new Point(470, 406),
+                Size = new Size(180, 44),
+                Location = new Point(470, btnY),
                 Cursor = Cursors.Hand
             };
             btnKirim.FlatAppearance.BorderSize = 0;
             btnKirim.FlatAppearance.MouseOverBackColor = Color.FromArgb(22, 163, 74);
-            btnKirim.Click += button1_Click;
+            btnKirim.Click += button3_Click;
             card.Controls.Add(btnKirim);
+            
+           
         }
 
         // ── Helper label ─────────────────────────────────────────────

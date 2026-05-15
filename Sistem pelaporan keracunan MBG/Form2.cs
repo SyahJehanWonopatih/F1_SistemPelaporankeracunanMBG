@@ -32,6 +32,9 @@ namespace Sistem_pelaporan_keracunan_MBG
         private TextBox txtUsername;
         private TextBox txtPassword;
 
+        public bool LoginSuccess { get; private set; } = false;
+
+
         public Form2()
         {
             InitializeComponent();
@@ -49,30 +52,23 @@ namespace Sistem_pelaporan_keracunan_MBG
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            string query = "SELECT COUNT(*) FROM Admin WHERE username='" + user + "' AND password='" + pass + "'";
 
-            string query = "SELECT COUNT(*) FROM Admin WHERE username = @user AND password = @pass";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@user", user);
-                    cmd.Parameters.AddWithValue("@pass", pass);
-
                     conn.Open();
                     int count = (int)cmd.ExecuteScalar();
 
                     if (count > 0)
                     {
+                        LoginSuccess = true; 
                         MessageBox.Show("Login berhasil!", "Sukses",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Form3 dashboard = new Form3();
-
-                        // 2. Tampilkan Form3
-                        dashboard.Show();
-
-                        // 3. Sembunyikan Form login (Form2)
-                        this.Hide();
+                        new Form3().Show();
+                        this.Close();
                     }
                     else
                     {
@@ -81,13 +77,13 @@ namespace Sistem_pelaporan_keracunan_MBG
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Gagal konek ke database:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
             private Panel MakeInputBox(Panel parent, int x, int y)
@@ -298,6 +294,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             btnLogin.Click += btnLogin_Click;
             main.Controls.Add(btnLogin);
 
+
             // ── Tombol Kembali ───────────────────────────────────────
             Button btnBack = new Button
             {
@@ -313,15 +310,13 @@ namespace Sistem_pelaporan_keracunan_MBG
             };
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnBack.Click += (s, e) => { this.Close();
-            new Form1().Show();
-            };
+            btnBack.Click += (s, e) => { this.Close(); };
             main.Controls.Add(btnBack);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Form1().Show();
+            
         }
     }
 }

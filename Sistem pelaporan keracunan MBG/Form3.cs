@@ -34,6 +34,10 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private DataGridView dgvRaporan;
         private TextBox txtSearch;
+        private BindingSource _bindingSource = new BindingSource();
+        private Label lblTotal;
+        private BindingNavigator _navigator;
+
 
         public Form3()
         {
@@ -54,7 +58,7 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void btnHapus_Click(object sender, EventArgs e)
         {
             if (dgvRaporan.SelectedRows.Count == 0)
-            {  // ← ganti
+            {
                 MessageBox.Show("Pilih laporan yang ingin dihapus.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -63,15 +67,16 @@ namespace Sistem_pelaporan_keracunan_MBG
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirm != DialogResult.Yes) return;
 
-            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;  // ← ganti
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(
-                    "DELETE FROM laporan WHERE id_laporan = @id", conn))
+                using (SqlCommand cmd = new SqlCommand("sp_DeleteLaporan", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open(); cmd.ExecuteNonQuery();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_laporan", id);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Laporan berhasil dihapus.", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -87,20 +92,22 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void btnTolakLaporan_Click(object sender, EventArgs e)
         {
             if (dgvRaporan.SelectedRows.Count == 0)
-            {  // ← ganti
+            {
                 MessageBox.Show("Pilih laporan yang ingin ditolak.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;  // ← ganti
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(
-                    "UPDATE laporan SET status_validasi = 'Ditolak' WHERE id_laporan = @id", conn))
+                using (SqlCommand cmd = new SqlCommand("sp_UpdateStatusLaporan", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open(); cmd.ExecuteNonQuery();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_laporan", id);
+                    cmd.Parameters.AddWithValue("@status_validasi", "Ditolak");
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Laporan berhasil ditolak.", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -116,24 +123,26 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void btnTerima_Click(object sender, EventArgs e)
         {
             if (dgvRaporan.SelectedRows.Count == 0)
-            {  // ← ganti dgvLaporan → dgvRaporan
+            {
                 MessageBox.Show("Pilih laporan yang ingin diterima.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;  // ← sama
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlCommand cmd = new SqlCommand(
-                    "UPDATE laporan SET status_validasi = 'Di Proses' WHERE id_laporan = @id", conn))
+                using (SqlCommand cmd = new SqlCommand("sp_UpdateStatusLaporan", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open(); cmd.ExecuteNonQuery();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_laporan", id);
+                    cmd.Parameters.AddWithValue("@status_validasi", "Di Proses");
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Laporan berhasil diproses.", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadLaporan();
+                    LoadLaporan();
             }
             catch (Exception ex)
             {
@@ -247,6 +256,8 @@ namespace Sistem_pelaporan_keracunan_MBG
                 BackColor = Color.Transparent
             });
 
+
+
             // Menu item aktif
             Panel menuActive = new Panel
             {
@@ -356,6 +367,15 @@ namespace Sistem_pelaporan_keracunan_MBG
             btnHapus.Click += btnHapus_Click;
             toolbar.Controls.Add(btnHapus);
 
+            // Backup Data
+            Button btnBackup = MakeButton("💾  Backup", Color.FromArgb(139, 92, 246), 600);
+            btnBackup.Click += (s, e) => BackupData();
+            toolbar.Controls.Add(btnBackup);
+
+            Button btnreset = MakeButton("↺  Reset Data", Color.FromArgb(245, 158, 11), 740);
+            btnreset.Click += (s, e) => ResetData();
+            toolbar.Controls.Add(btnreset);
+
             // ── Search bar ────────────────────────────────────────────
             Panel searchPanel = new Panel
             {
@@ -459,8 +479,34 @@ namespace Sistem_pelaporan_keracunan_MBG
             };
             main.Controls.Add(dgvRaporan);
 
+
+            lblTotal = new Label
+            {
+                Text = "Total Laporan: 0",
+                Font = new Font("Segoe UI", 9f),
+                ForeColor = TextMuted,
+                Location = new Point(0, 532),
+                Size = new Size(300, 20),
+                BackColor = Color.Transparent,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+            };
+            main.Controls.Add(lblTotal);
+
+            // ── Binding Navigator ─────────────────────────────────────
+            _navigator = new BindingNavigator(_bindingSource)
+            {
+                Dock = DockStyle.Bottom,
+                BackColor = SidePanel,
+                ForeColor = TextPrimary
+            };
+            this.Controls.Add(_navigator);
+
             LoadLaporan();
-        } // ← tutup BuildUI()
+
+            
+
+
+        } 
            
         
 
@@ -494,123 +540,74 @@ namespace Sistem_pelaporan_keracunan_MBG
                 dgvRaporan.Rows.Clear();
                 dgvRaporan.Columns.Clear();
 
-                string query = @"
-            SELECT 
-                l.id_laporan,
-                m.nama_pelapor,
-                m.kontak,
-                m.kota_kab,
-                l.lokasi_kejadian,
-                l.tanggal,
-                l.jumlah_korban,
-                l.gejala,
-                l.status_validasi
-            FROM Laporan l
-            INNER JOIN Masyarakat m ON l.id_masyarakat = m.id_masyarakat
-            ORDER BY l.id_laporan DESC";
-
                 using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_GetLaporan", conn))
                 {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvRaporan.DataSource = dt;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        _bindingSource.DataSource = dt;
+                        dgvRaporan.DataSource = _bindingSource;
+                    }
                 }
+                // SP COUNT — output parameter
+                HitungTotal();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Gagal load data:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
-        private void SearchLaporan(string keyword)
+        private void HitungTotal()
         {
             try
             {
-                dgvLaporan.DataSource = null;
-                dgvLaporan.Rows.Clear();
-                dgvLaporan.Columns.Clear();
-
-                string query = @"
-            SELECT 
-                l.id_laporan,
-                m.nama_pelapor,
-                m.kontak,
-                m.kota_kab,
-                l.lokasi_kejadian,
-                l.tanggal,
-                l.jumlah_korban,
-                l.gejala,
-                l.status_validasi
-            FROM Laporan l
-            INNER JOIN Masyarakat m ON l.id_masyarakat = m.id_masyarakat
-            WHERE 
-                CAST(l.id_laporan AS VARCHAR) LIKE @keyword OR
-                m.nama_pelapor LIKE @keyword
-            ORDER BY l.id_laporan DESC";
-
                 using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_CountLaporan", conn))
                 {
-                    adapter.SelectCommand.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvLaporan.DataSource = dt;
-
-                    if (dt.Rows.Count == 0)
-                        MessageBox.Show("Data tidak ditemukan.", "Info",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter output = new SqlParameter("@total", SqlDbType.Int)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(output);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    lblTotal.Text = "Total Laporan: " + output.Value.ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal mencari data:\n" + ex.Message, "Error",
+                MessageBox.Show("Gagal hitung total:\n" + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        
         private void SearchLaporan1(string keyword)
         {
             try
             {
-                dgvRaporan.DataSource = null;
-                dgvRaporan.Rows.Clear();
-                dgvRaporan.Columns.Clear();
-
-                string query = @"
-            SELECT 
-                l.id_laporan,
-                m.nama_pelapor,
-                m.kontak,
-                m.kota_kab,
-                l.lokasi_kejadian,
-                l.tanggal,
-                l.jumlah_korban,
-                l.gejala,
-                l.status_validasi
-            FROM Laporan l
-            INNER JOIN Masyarakat m ON l.id_masyarakat = m.id_masyarakat
-            WHERE 
-                CAST(l.id_laporan AS VARCHAR) LIKE @keyword OR
-                m.nama_pelapor LIKE @keyword
-            ORDER BY l.id_laporan DESC";
-
                 using (SqlConnection conn = new SqlConnection(connectionString))
-                using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
+                using (SqlCommand cmd = new SqlCommand("sp_SearchLaporan", conn))
                 {
-                    adapter.SelectCommand.Parameters.Add("@keyword",
-                        SqlDbType.VarChar).Value = "%" + keyword + "%";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@keyword", keyword);
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        _bindingSource.DataSource = dt;
+                        dgvRaporan.DataSource = _bindingSource;
+                        lblTotal.Text = "Total Laporan: " + dt.Rows.Count;
 
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dgvRaporan.DataSource = dt;
-
-                    if (dt.Rows.Count == 0)
-                        MessageBox.Show("Data tidak ditemukan.", "Info",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (dt.Rows.Count == 0)
+                            MessageBox.Show("Data tidak ditemukan.", "Info",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             catch (Exception ex)
@@ -620,5 +617,72 @@ namespace Sistem_pelaporan_keracunan_MBG
             }
         }
 
+        private void BackupData()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string query = @"
+                IF OBJECT_ID('dbo.Laporan_Backup') IS NOT NULL DROP TABLE dbo.Laporan_Backup;
+                IF OBJECT_ID('dbo.Masyarakat_Backup') IS NOT NULL DROP TABLE dbo.Masyarakat_Backup;
+                SELECT * INTO dbo.Laporan_Backup FROM dbo.Laporan;
+                SELECT * INTO dbo.Masyarakat_Backup FROM dbo.Masyarakat;";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                        cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Backup berhasil dibuat!", "Sukses",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Backup gagal:\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ResetData()
+        {
+            var confirm = MessageBox.Show(
+                "Reset akan mengembalikan data ke kondisi backup.\nLanjutkan?",
+                "Konfirmasi Reset", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm != DialogResult.Yes) return;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                IF OBJECT_ID('dbo.Laporan_Backup') IS NOT NULL
+                BEGIN
+                    DELETE FROM dbo.Laporan;
+                    DELETE FROM dbo.Masyarakat;
+                    SET IDENTITY_INSERT dbo.Masyarakat ON;
+                    INSERT INTO dbo.Masyarakat (id_masyarakat, nama_pelapor, kontak, alamat, kota_kab)
+                    SELECT id_masyarakat, nama_pelapor, kontak, alamat, kota_kab FROM dbo.Masyarakat_Backup;
+                    SET IDENTITY_INSERT dbo.Masyarakat OFF;
+                    SET IDENTITY_INSERT dbo.Laporan ON;
+                    INSERT INTO dbo.Laporan (id_laporan, id_masyarakat, lokasi_kejadian, tanggal, jumlah_korban, gejala, status_validasi)
+                    SELECT id_laporan, id_masyarakat, lokasi_kejadian, tanggal, jumlah_korban, gejala, status_validasi FROM dbo.Laporan_Backup;
+                    SET IDENTITY_INSERT dbo.Laporan OFF;
+                END";
+
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                        cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Data berhasil direset dari backup.", "Sukses",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadLaporan();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Reset gagal:\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

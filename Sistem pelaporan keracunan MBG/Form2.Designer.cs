@@ -80,7 +80,7 @@
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.Color.Transparent;
-            this.btnLogin.Location = new System.Drawing.Point(116, 341);
+            this.btnLogin.Location = new System.Drawing.Point(390, 341);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(95, 23);
             this.btnLogin.TabIndex = 36;
@@ -91,7 +91,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(390, 341);
+            this.button1.Location = new System.Drawing.Point(168, 341);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(95, 23);
             this.button1.TabIndex = 37;
