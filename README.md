@@ -2,10 +2,10 @@
 <img width="981" height="581" alt="image" src="https://github.com/user-attachments/assets/45dda1f3-0655-41ce-8fe5-bfbc53cf8319" />
 
 2. admin validasi data dan back up data
-<img width="1142" height="693" alt="image" src="https://github.com/user-attachments/assets/cf03aef6-791e-4088-8b0c-f441da57af81" />
+<img width="1144" height="695" alt="image" src="https://github.com/user-attachments/assets/8b779759-fdad-4f92-97de-4c377c13a16c" />
 
 3. admin log out
-<img width="1137" height="689" alt="image" src="https://github.com/user-attachments/assets/803cfe1c-082e-4f2f-a4a5-bb16eac03ce9" />
+<img width="1145" height="696" alt="image" src="https://github.com/user-attachments/assets/5fe48d3f-3a2c-429f-b6c0-261ba7a5fab7" />
 
 4. injection di form login
 <img width="980" height="577" alt="image" src="https://github.com/user-attachments/assets/551a53d4-3bb3-4232-aa4d-9ce90488107c" />
