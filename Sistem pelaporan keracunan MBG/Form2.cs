@@ -86,7 +86,7 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         }
 
-            private Panel MakeInputBox(Panel parent, int x, int y)
+        private Panel MakeInputBox(Panel parent, int x, int y)
         {
             Panel box = new Panel
             {
@@ -317,6 +317,11 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void button1_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
