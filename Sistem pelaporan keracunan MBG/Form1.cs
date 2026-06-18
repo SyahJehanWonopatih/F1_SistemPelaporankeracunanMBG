@@ -42,24 +42,33 @@ namespace Sistem_pelaporan_keracunan_MBG
             this.Font = new Font("Segoe UI", 9f);
             this.Controls.Clear();
 
-            // ── Sidebar ──────────────────────────────────────────────
+            // ── DEKLARASI PANEL ──────────────────────────────────────
             Panel sidebar = new Panel
             {
                 Width = 240,
                 BackColor = SidePanel,
                 Dock = DockStyle.Left
             };
+
+            Panel main = new Panel
+            {
+                BackColor = BgDark,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(50, 0, 0, 0)
+            };
+
+            // Fill dulu, Left belakangan
+            this.Controls.Add(main);
             this.Controls.Add(sidebar);
 
+            // ── ISI SIDEBAR ───────────────────────────────────────────
             Panel logoBox = new Panel
             {
                 Size = new Size(56, 56),
                 Location = new Point(92, 60),
                 BackColor = Color.FromArgb(30, 36, 64)
             };
-            sidebar.Controls.Add(logoBox);
-
-            Label logoIcon = new Label
+            logoBox.Controls.Add(new Label
             {
                 Text = "✦",
                 Font = new Font("Segoe UI", 20f, FontStyle.Bold),
@@ -67,10 +76,10 @@ namespace Sistem_pelaporan_keracunan_MBG
                 TextAlign = ContentAlignment.MiddleCenter,
                 Dock = DockStyle.Fill,
                 BackColor = Color.Transparent
-            };
-            logoBox.Controls.Add(logoIcon);
+            });
+            sidebar.Controls.Add(logoBox);
 
-            Label appTitle = new Label
+            sidebar.Controls.Add(new Label
             {
                 Text = "Sistem Pelaporan\nMBG",
                 Font = new Font("Segoe UI", 13f, FontStyle.Bold),
@@ -79,10 +88,9 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Size = new Size(200, 58),
                 Location = new Point(20, 130),
                 BackColor = Color.Transparent
-            };
-            sidebar.Controls.Add(appTitle);
+            });
 
-            Label appSub = new Label
+            sidebar.Controls.Add(new Label
             {
                 Text = "Makan Bergizi Gratis",
                 Font = new Font("Segoe UI", 8f),
@@ -91,63 +99,51 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Size = new Size(200, 20),
                 Location = new Point(20, 190),
                 BackColor = Color.Transparent
-            };
-            sidebar.Controls.Add(appSub);
+            });
 
-            Panel divider = new Panel
+            sidebar.Controls.Add(new Panel
             {
                 Size = new Size(140, 1),
                 Location = new Point(50, 224),
                 BackColor = Border
-            };
-            sidebar.Controls.Add(divider);
+            });
 
-            Label version = new Label
+            sidebar.Controls.Add(new Label
             {
                 Text = "v1.0.0  •  2025",
                 Font = new Font("Segoe UI", 7.5f),
                 ForeColor = Color.FromArgb(45, 51, 72),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = new Size(200, 20),
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
                 Location = new Point(20, this.ClientSize.Height - 36),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
                 BackColor = Color.Transparent
-            };
-            sidebar.Controls.Add(version);
+            });
 
-            // ── Main Content ─────────────────────────────────────────
-            Panel main = new Panel
-            {
-                BackColor = BgDark,
-                Dock = DockStyle.Fill,  
-                Padding = new Padding(50, 0, 0, 0)
-            };
-            this.Controls.Add(main);
-
-            Label greeting = new Label
+            // ── ISI MAIN ─────────────────────────────────────────────
+            main.Controls.Add(new Label
             {
                 Text = "Selamat Datang",
                 Font = new Font("Segoe UI", 20f, FontStyle.Bold),
                 ForeColor = TextPrimary,
-                Location = Location = new Point(0, 90),
+                Location = new Point(0, 90),
                 Size = new Size(400, 40),
                 BackColor = Color.Transparent
-            };
-            main.Controls.Add(greeting);
+            });
 
-            Label subGreet = new Label
+            main.Controls.Add(new Label
             {
                 Text = "Pilih opsi di bawah untuk melanjutkan.",
                 Font = new Font("Segoe UI", 9.5f),
                 ForeColor = TextMuted,
-                Location = Location = new Point(0, 134),
+                Location = new Point(0, 134),
                 Size = new Size(400, 22),
                 BackColor = Color.Transparent
-            };
-            main.Controls.Add(subGreet);
+            });
 
+            // ── CARD ADMIN ────────────────────────────────────────────
             Panel cardAdmin = MakeCard(main, 0, 185,
-            "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
+                "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
             EventHandler openAdmin = (s, e) => {
                 var state = this.WindowState;
                 this.Hide();
@@ -161,8 +157,9 @@ namespace Sistem_pelaporan_keracunan_MBG
             cardAdmin.Click += openAdmin;
             foreach (Control c in cardAdmin.Controls) c.Click += openAdmin;
 
+            // ── CARD LAPOR ────────────────────────────────────────────
             Panel cardLapor = MakeCard(main, 0, 295,
-            "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
+                "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
             cardLapor.Click += (s, e) => {
                 var state = this.WindowState;
                 this.Hide();
