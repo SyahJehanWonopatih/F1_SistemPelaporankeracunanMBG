@@ -159,12 +159,15 @@ namespace Sistem_pelaporan_keracunan_MBG
         private void btnLogout_Click(object sender, EventArgs e)
         {
             var confirm = MessageBox.Show(
-                "ingin logout?", "Konfirmasi",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            "ingin logout?", "Konfirmasi",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
+                var state = this.WindowState;
                 this.Close();
-                new Form1().Show();
+                var f1 = new Form1();
+                f1.WindowState = state;
+                f1.Show();
             }
         }
 
