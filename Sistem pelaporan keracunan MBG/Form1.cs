@@ -45,9 +45,9 @@ namespace Sistem_pelaporan_keracunan_MBG
             // ── Sidebar ──────────────────────────────────────────────
             Panel sidebar = new Panel
             {
-                Size = new Size(240, this.ClientSize.Height),
-                Location = new Point(0, 0),
-                BackColor = SidePanel
+                Width = 240,
+                BackColor = SidePanel,
+                Dock = DockStyle.Left
             };
             this.Controls.Add(sidebar);
 
@@ -109,6 +109,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 ForeColor = Color.FromArgb(45, 51, 72),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = new Size(200, 20),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
                 Location = new Point(20, this.ClientSize.Height - 36),
                 BackColor = Color.Transparent
             };
@@ -117,9 +118,9 @@ namespace Sistem_pelaporan_keracunan_MBG
             // ── Main Content ─────────────────────────────────────────
             Panel main = new Panel
             {
-                Size = new Size(this.ClientSize.Width - 240, this.ClientSize.Height),
-                Location = new Point(240, 0),
-                BackColor = BgDark
+                BackColor = BgDark,
+                Dock = DockStyle.Fill,  
+                Padding = new Padding(50, 0, 0, 0)
             };
             this.Controls.Add(main);
 
@@ -128,7 +129,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Text = "Selamat Datang",
                 Font = new Font("Segoe UI", 20f, FontStyle.Bold),
                 ForeColor = TextPrimary,
-                Location = new Point(50, 90),
+                Location = Location = new Point(0, 90),
                 Size = new Size(400, 40),
                 BackColor = Color.Transparent
             };
@@ -139,13 +140,13 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Text = "Pilih opsi di bawah untuk melanjutkan.",
                 Font = new Font("Segoe UI", 9.5f),
                 ForeColor = TextMuted,
-                Location = new Point(50, 134),
+                Location = Location = new Point(0, 134),
                 Size = new Size(400, 22),
                 BackColor = Color.Transparent
             };
             main.Controls.Add(subGreet);
 
-            Panel cardAdmin = MakeCard(main, 50, 185,
+            Panel cardAdmin = MakeCard(main, 0, 185,
             "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
             EventHandler openAdmin = (s, e) => {
                 var state = this.WindowState;
@@ -160,7 +161,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             cardAdmin.Click += openAdmin;
             foreach (Control c in cardAdmin.Controls) c.Click += openAdmin;
 
-            Panel cardLapor = MakeCard(main, 50, 295,
+            Panel cardLapor = MakeCard(main, 0, 295,
             "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
             cardLapor.Click += (s, e) => {
                 var state = this.WindowState;
