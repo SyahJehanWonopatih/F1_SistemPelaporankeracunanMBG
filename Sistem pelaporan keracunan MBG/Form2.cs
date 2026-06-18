@@ -64,10 +64,13 @@ namespace Sistem_pelaporan_keracunan_MBG
 
                     if (count > 0)
                     {
-                        LoginSuccess = true; 
+                        LoginSuccess = true;
                         MessageBox.Show("Login berhasil!", "Sukses",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        new Form3().Show();
+                        var state = this.WindowState;
+                        var f3 = new Form3();
+                        f3.WindowState = state;
+                        f3.Show();
                         this.Close();
                     }
                     else
