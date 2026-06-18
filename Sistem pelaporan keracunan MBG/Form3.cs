@@ -684,5 +684,36 @@ namespace Sistem_pelaporan_keracunan_MBG
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnSelesai_Click(object sender, EventArgs e)
+        {
+            if (dgvRaporan.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Pilih laporan yang ingin diselesaikan.", "Info",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            var id = dgvRaporan.SelectedRows[0].Cells["id_laporan"].Value;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_UpdateStatusLaporan", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id_laporan", id);
+                    cmd.Parameters.AddWithValue("@status_validasi", "Selesai");
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Laporan berhasil diselesaikan.", "Sukses",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadLaporan();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

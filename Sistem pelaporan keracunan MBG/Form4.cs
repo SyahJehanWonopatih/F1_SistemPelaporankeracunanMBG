@@ -504,8 +504,5 @@ namespace Sistem_pelaporan_keracunan_MBG
             parent.Controls.Add(tb);
             return tb;
         }
-
-
-
     }
 }

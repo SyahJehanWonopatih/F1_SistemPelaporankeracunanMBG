@@ -35,6 +35,7 @@
             this.btnHapus = new System.Windows.Forms.Button();
             this.btnTolakLaporan = new System.Windows.Forms.Button();
             this.btnTerima = new System.Windows.Forms.Button();
+            this.btnSelesai = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLaporan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,12 +114,24 @@
             this.btnTerima.UseVisualStyleBackColor = false;
             this.btnTerima.Click += new System.EventHandler(this.btnTerima_Click);
             // 
+            // btnSelesai
+            // 
+            this.btnSelesai.BackColor = System.Drawing.Color.Transparent;
+            this.btnSelesai.Location = new System.Drawing.Point(544, 229);
+            this.btnSelesai.Name = "btnSelesai";
+            this.btnSelesai.Size = new System.Drawing.Size(107, 23);
+            this.btnSelesai.TabIndex = 48;
+            this.btnSelesai.Text = "Selesai";
+            this.btnSelesai.UseVisualStyleBackColor = false;
+            this.btnSelesai.Click += new System.EventHandler(this.btnSelesai_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(687, 524);
+            this.Controls.Add(this.btnSelesai);
             this.Controls.Add(this.btnTerima);
             this.Controls.Add(this.btnTolakLaporan);
             this.Controls.Add(this.btnHapus);
@@ -144,5 +157,6 @@
         private System.Windows.Forms.Button btnHapus;
         private System.Windows.Forms.Button btnTolakLaporan;
         private System.Windows.Forms.Button btnTerima;
+        private System.Windows.Forms.Button btnSelesai;
     }
 }
