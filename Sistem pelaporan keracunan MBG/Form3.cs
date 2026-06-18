@@ -341,7 +341,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             Panel toolbar = new Panel
             {
                 Location = new Point(0, 80),
-                Size = new Size(900, 50),
+                Size = new Size(1020, 50),
                 BackColor = Color.Transparent,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
@@ -434,6 +434,10 @@ namespace Sistem_pelaporan_keracunan_MBG
             btnReset.FlatAppearance.BorderSize = 1;
             btnReset.Click += (s, e) => { txtSearch.Clear(); LoadLaporan(); };
             searchPanel.Controls.Add(btnReset);
+
+            Button btnSelesai = MakeButton("✔  Selesai", Color.FromArgb(20, 184, 166), 880);
+            btnSelesai.Click += btnSelesai_Click;
+            toolbar.Controls.Add(btnSelesai);
 
             // ── DataGridView ──────────────────────────────────────────
             dgvRaporan = new DataGridView
