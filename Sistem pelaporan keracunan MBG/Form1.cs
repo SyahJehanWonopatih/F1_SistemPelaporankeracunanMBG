@@ -146,13 +146,15 @@ namespace Sistem_pelaporan_keracunan_MBG
             main.Controls.Add(subGreet);
 
             Panel cardAdmin = MakeCard(main, 50, 185,
-    "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
+            "Login Admin", "Masuk sebagai administrator sistem", AccentBlue);
             EventHandler openAdmin = (s, e) => {
+                var state = this.WindowState;
                 this.Hide();
                 using (var f = new Form2())
                 {
+                    f.WindowState = state;
                     f.ShowDialog();
-                    if (!f.LoginSuccess) this.Show(); 
+                    if (!f.LoginSuccess) { this.Show(); this.WindowState = state; }
                 }
             };
             cardAdmin.Click += openAdmin;
