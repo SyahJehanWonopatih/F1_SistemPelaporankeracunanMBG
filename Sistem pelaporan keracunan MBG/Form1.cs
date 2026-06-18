@@ -162,9 +162,25 @@ namespace Sistem_pelaporan_keracunan_MBG
 
             Panel cardLapor = MakeCard(main, 50, 295,
             "Melapor", "Laporkan kejadian keracunan MBG", AccentGreen);
-            cardLapor.Click += (s, e) => { this.Hide(); new Form4().ShowDialog(); this.Show(); };
+            cardLapor.Click += (s, e) => {
+                var state = this.WindowState;
+                this.Hide();
+                var f4 = new Form4();
+                f4.WindowState = state;
+                f4.ShowDialog();
+                this.Show();
+                this.WindowState = state;
+            };
             foreach (Control c in cardLapor.Controls)
-                c.Click += (s, e) => { this.Hide(); new Form4().ShowDialog(); this.Show(); };
+                c.Click += (s, e) => {
+                    var state = this.WindowState;
+                    this.Hide();
+                    var f4 = new Form4();
+                    f4.WindowState = state;
+                    f4.ShowDialog();
+                    this.Show();
+                    this.WindowState = state;
+                };
         }
 
         private Panel MakeCard(Panel parent, int x, int y, string title, string desc, Color accent)
