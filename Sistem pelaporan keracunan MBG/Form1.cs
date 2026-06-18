@@ -37,8 +37,8 @@ namespace Sistem_pelaporan_keracunan_MBG
             this.MinimumSize = new Size(860, 520);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = BgDark;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
             this.Font = new Font("Segoe UI", 9f);
             this.Controls.Clear();
 
