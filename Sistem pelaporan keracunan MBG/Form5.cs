@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,19 @@ namespace Sistem_pelaporan_keracunan_MBG
 {
     public partial class Form5 : Form
     {
+
+        private readonly string connectionString =
+            "Data Source=TERABYTE\\SYAHJEHAN00;" +
+            "Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;" +
+            "Integrated Security=True";
+
         public Form5()
         {
             InitializeComponent();
+            // Default: dari awal bulan sampai hari ini
+            dateTimePicker1.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            dateTimePicker2.Value = DateTime.Now;
+            LoadLaporan();
         }
 
         private void LoadLaporan()
