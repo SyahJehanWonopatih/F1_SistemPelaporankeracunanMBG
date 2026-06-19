@@ -19,12 +19,12 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-
+            LoadLaporan();
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
-
+            LoadLaporan();
         }
 
         private void button1_Click(object sender, EventArgs e)
