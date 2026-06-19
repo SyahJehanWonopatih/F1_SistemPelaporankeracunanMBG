@@ -36,6 +36,7 @@
             this.btnTolakLaporan = new System.Windows.Forms.Button();
             this.btnTerima = new System.Windows.Forms.Button();
             this.btnSelesai = new System.Windows.Forms.Button();
+            this.btnCetak = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLaporan)).BeginInit();
             this.SuspendLayout();
             // 
@@ -125,12 +126,24 @@
             this.btnSelesai.UseVisualStyleBackColor = false;
             this.btnSelesai.Click += new System.EventHandler(this.btnSelesai_Click);
             // 
+            // btnCetak
+            // 
+            this.btnCetak.BackColor = System.Drawing.Color.Transparent;
+            this.btnCetak.Location = new System.Drawing.Point(45, 229);
+            this.btnCetak.Name = "btnCetak";
+            this.btnCetak.Size = new System.Drawing.Size(107, 23);
+            this.btnCetak.TabIndex = 49;
+            this.btnCetak.Text = "Cetak Laporan";
+            this.btnCetak.UseVisualStyleBackColor = false;
+            this.btnCetak.Click += new System.EventHandler(this.btnCetak_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(687, 524);
+            this.Controls.Add(this.btnCetak);
             this.Controls.Add(this.btnSelesai);
             this.Controls.Add(this.btnTerima);
             this.Controls.Add(this.btnTolakLaporan);
@@ -158,5 +171,6 @@
         private System.Windows.Forms.Button btnTolakLaporan;
         private System.Windows.Forms.Button btnTerima;
         private System.Windows.Forms.Button btnSelesai;
+        private System.Windows.Forms.Button btnCetak;
     }
 }

@@ -285,6 +285,34 @@ namespace Sistem_pelaporan_keracunan_MBG
             });
             sidebar.Controls.Add(menuActive);
 
+            Panel menuCetak = new Panel
+            {
+                Size = new Size(220, 40),
+                Location = new Point(0, 300),
+                BackColor = Color.Transparent,
+                Cursor = Cursors.Hand
+            };
+            menuCetak.Controls.Add(new Label
+            {
+                Text = "Cetak Laporan",
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = TextMuted,
+                Location = new Point(16, 10),
+                Size = new Size(180, 20),
+                BackColor = Color.Transparent
+            });
+            EventHandler bukaCetak = (s, e) => { new Form5(this.WindowState).Show(); };
+            menuCetak.Click += bukaCetak;
+            menuCetak.MouseEnter += (s, e) => menuCetak.BackColor = Color.FromArgb(30, 34, 55);
+            menuCetak.MouseLeave += (s, e) => menuCetak.BackColor = Color.Transparent;
+            foreach (Control c in menuCetak.Controls)
+            {
+                c.Click += bukaCetak;
+                c.MouseEnter += (s, e) => menuCetak.BackColor = Color.FromArgb(30, 34, 55);
+                c.MouseLeave += (s, e) => menuCetak.BackColor = Color.Transparent;
+            }
+            sidebar.Controls.Add(menuCetak);
+
             // Logout button di bawah sidebar
             Button btnLogout = new Button
             {
@@ -509,10 +537,6 @@ namespace Sistem_pelaporan_keracunan_MBG
             this.Controls.Add(_navigator);
 
             LoadLaporan();
-
-            
-
-
         } 
            
         
@@ -721,6 +745,11 @@ namespace Sistem_pelaporan_keracunan_MBG
                 MessageBox.Show("Error: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnCetak_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

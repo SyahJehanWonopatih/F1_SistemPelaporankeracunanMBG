@@ -13,6 +13,13 @@ namespace Sistem_pelaporan_keracunan_MBG
 {
     public partial class Form5 : Form
     {
+        public Form5(FormWindowState state = FormWindowState.Normal)
+        {
+            InitializeComponent();
+            BuildUI();
+            this.WindowState = state;
+        }
+
         private readonly Color BgDark = Color.FromArgb(15, 17, 26);
         private readonly Color SidePanel = Color.FromArgb(22, 25, 41);
         private readonly Color CardBg = Color.FromArgb(22, 25, 41);
@@ -377,6 +384,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             }
 
             Form6 formCetak = new Form6(dtpDari.Value.Date, dtpSampai.Value.Date);
+            formCetak.WindowState = this.WindowState;
             formCetak.Show();
         }
     }
