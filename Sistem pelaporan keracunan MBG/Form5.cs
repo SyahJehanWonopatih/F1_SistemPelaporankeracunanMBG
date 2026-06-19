@@ -13,18 +13,320 @@ namespace Sistem_pelaporan_keracunan_MBG
 {
     public partial class Form5 : Form
     {
+        private readonly Color BgDark = Color.FromArgb(15, 17, 26);
+        private readonly Color SidePanel = Color.FromArgb(22, 25, 41);
+        private readonly Color CardBg = Color.FromArgb(22, 25, 41);
+        private readonly Color Border = Color.FromArgb(42, 45, 62);
+        private readonly Color AccentBlue = Color.FromArgb(99, 102, 241);
+        private readonly Color AccentGreen = Color.FromArgb(34, 197, 94);
+        private readonly Color AccentRed = Color.FromArgb(239, 68, 68);
+        private readonly Color TextPrimary = Color.FromArgb(226, 232, 240);
+        private readonly Color TextMuted = Color.FromArgb(74, 85, 104);
+        private readonly Color TableBg = Color.FromArgb(18, 21, 33);
+
 
         private readonly string connectionString =
             "Data Source=TERABYTE\\SYAHJEHAN00;" +
             "Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;" +
             "Integrated Security=True";
 
+        private DataGridView dgvLaporan;
+        private DateTimePicker dtpDari;
+        private DateTimePicker dtpSampai;
+        private Label lblTotal;
+
         public Form5()
         {
             InitializeComponent();
-            // Default: dari awal bulan sampai hari ini
-            dateTimePicker1.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            dateTimePicker2.Value = DateTime.Now;
+            BuildUI();
+        }
+
+        private void BuildUI()
+        {
+            this.Text = "Cetak Laporan MBG";
+            this.Size = new Size(1100, 650);
+            this.MinimumSize = new Size(900, 550);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = BgDark;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
+            this.Font = new Font("Segoe UI", 9f);
+            this.Controls.Clear();
+
+            // ── Panel deklarasi dulu ──────────────────────────────────
+            Panel main = new Panel
+            {
+                BackColor = BgDark,
+                Dock = DockStyle.Fill,
+                Padding = new Padding(30, 20, 30, 20)
+            };
+
+            Panel sidebar = new Panel
+            {
+                Width = 220,
+                BackColor = SidePanel,
+                Dock = DockStyle.Left
+            };
+
+            this.Controls.Add(main);
+            this.Controls.Add(sidebar);
+
+            // ═══ ISI SIDEBAR ════════════════════════════════════════
+            Panel logoBox = new Panel
+            {
+                Size = new Size(56, 56),
+                Location = new Point(82, 50),
+                BackColor = Color.FromArgb(30, 36, 64)
+            };
+            logoBox.Controls.Add(new Label
+            {
+                Text = "✦",
+                Font = new Font("Segoe UI", 20f, FontStyle.Bold),
+                ForeColor = AccentBlue,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                BackColor = Color.Transparent
+            });
+            sidebar.Controls.Add(logoBox);
+
+            sidebar.Controls.Add(new Label
+            {
+                Text = "Sistem Pelaporan\nMBG",
+                Font = new Font("Segoe UI", 12f, FontStyle.Bold),
+                ForeColor = TextPrimary,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(180, 55),
+                Location = new Point(20, 118),
+                BackColor = Color.Transparent
+            });
+
+            sidebar.Controls.Add(new Label
+            {
+                Text = "Makan Bergizi Gratis",
+                Font = new Font("Segoe UI", 8f),
+                ForeColor = TextMuted,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(180, 20),
+                Location = new Point(20, 176),
+                BackColor = Color.Transparent
+            });
+
+            sidebar.Controls.Add(new Panel
+            {
+                Size = new Size(130, 1),
+                Location = new Point(45, 210),
+                BackColor = Border
+            });
+
+            sidebar.Controls.Add(new Label
+            {
+                Text = "MENU",
+                Font = new Font("Segoe UI", 7.5f, FontStyle.Bold),
+                ForeColor = TextMuted,
+                Location = new Point(20, 230),
+                Size = new Size(180, 20),
+                BackColor = Color.Transparent
+            });
+
+            Panel menuActive = new Panel
+            {
+                Size = new Size(220, 40),
+                Location = new Point(0, 254),
+                BackColor = Color.FromArgb(30, 34, 55)
+            };
+            menuActive.Controls.Add(new Panel
+            {
+                Size = new Size(3, 40),
+                Location = new Point(0, 0),
+                BackColor = AccentBlue
+            });
+            menuActive.Controls.Add(new Label
+            {
+                Text = "Cetak Laporan",
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                ForeColor = TextPrimary,
+                Location = new Point(16, 10),
+                Size = new Size(180, 20),
+                BackColor = Color.Transparent
+            });
+            sidebar.Controls.Add(menuActive);
+
+            // Logout button
+            Button btnBack = new Button
+            {
+                Text = "↩  Kembali",
+                Font = new Font("Segoe UI", 9f),
+                ForeColor = AccentRed,
+                BackColor = Color.Transparent,
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(180, 38),
+                Location = new Point(20, 500),
+                Cursor = Cursors.Hand,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+            };
+            btnBack.FlatAppearance.BorderSize = 0;
+            btnBack.FlatAppearance.MouseOverBackColor = Color.FromArgb(40, 239, 68, 68);
+            btnBack.Click += (s, e) => this.Close();
+            sidebar.Controls.Add(btnBack);
+
+            sidebar.Controls.Add(new Label
+            {
+                Text = "v1.0.0  •  2025",
+                Font = new Font("Segoe UI", 7.5f),
+                ForeColor = Color.FromArgb(45, 51, 72),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(180, 20),
+                Location = new Point(20, 540),
+                BackColor = Color.Transparent,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+            });
+
+            // ═══ ISI MAIN ════════════════════════════════════════════
+
+            // Header
+            main.Controls.Add(new Label
+            {
+                Text = "Cetak Laporan",
+                Font = new Font("Segoe UI", 18f, FontStyle.Bold),
+                ForeColor = TextPrimary,
+                Location = new Point(0, 0),
+                Size = new Size(500, 38),
+                BackColor = Color.Transparent
+            });
+
+            main.Controls.Add(new Label
+            {
+                Text = "Cetak laporan keracunan MBG berdasarkan tanggal.",
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = TextMuted,
+                Location = new Point(0, 40),
+                Size = new Size(500, 22),
+                BackColor = Color.Transparent
+            });
+
+            // ── Toolbar filter ────────────────────────────────────────
+            Panel toolbar = new Panel
+            {
+                Location = new Point(0, 80),
+                Size = new Size(900, 50),
+                BackColor = Color.Transparent
+            };
+            main.Controls.Add(toolbar);
+
+            toolbar.Controls.Add(new Label
+            {
+                Text = "Dari",
+                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
+                ForeColor = TextMuted,
+                Location = new Point(0, 14),
+                Size = new Size(30, 20),
+                BackColor = Color.Transparent
+            });
+
+            dtpDari = new DateTimePicker
+            {
+                Location = new Point(36, 8),
+                Size = new Size(180, 36),
+                Font = new Font("Segoe UI", 9.5f),
+                Format = DateTimePickerFormat.Short,
+                Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)
+            };
+            dtpDari.ValueChanged += (s, e) => LoadLaporan();
+            toolbar.Controls.Add(dtpDari);
+
+            toolbar.Controls.Add(new Label
+            {
+                Text = "s/d",
+                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
+                ForeColor = TextMuted,
+                Location = new Point(224, 14),
+                Size = new Size(28, 20),
+                BackColor = Color.Transparent
+            });
+
+            dtpSampai = new DateTimePicker
+            {
+                Location = new Point(258, 8),
+                Size = new Size(180, 36),
+                Font = new Font("Segoe UI", 9.5f),
+                Format = DateTimePickerFormat.Short,
+                Value = DateTime.Now
+            };
+            dtpSampai.ValueChanged += (s, e) => LoadLaporan();
+            toolbar.Controls.Add(dtpSampai);
+
+            Button btnCetak = new Button
+            {
+                Text = "🖨  Cetak Laporan",
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                ForeColor = Color.White,
+                BackColor = AccentBlue,
+                FlatStyle = FlatStyle.Flat,
+                Size = new Size(160, 38),
+                Location = new Point(460, 6),
+                Cursor = Cursors.Hand
+            };
+            btnCetak.FlatAppearance.BorderSize = 0;
+            btnCetak.FlatAppearance.MouseOverBackColor = Color.FromArgb(79, 82, 221);
+            btnCetak.Click += button1_Click;
+            toolbar.Controls.Add(btnCetak);
+
+            // ── DataGridView ──────────────────────────────────────────
+            dgvLaporan = new DataGridView
+            {
+                Location = new Point(0, 148),
+                Size = new Size(900, 390),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left
+                       | AnchorStyles.Right | AnchorStyles.Bottom,
+                BackgroundColor = TableBg,
+                GridColor = Border,
+                BorderStyle = BorderStyle.None,
+                RowHeadersVisible = false,
+                AllowUserToAddRows = false,
+                ReadOnly = true,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                Font = new Font("Segoe UI", 9f),
+                ForeColor = TextPrimary,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 40
+            };
+            dgvLaporan.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = SidePanel,
+                ForeColor = TextMuted,
+                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
+                Padding = new Padding(8, 0, 0, 0)
+            };
+            dgvLaporan.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = TableBg,
+                ForeColor = TextPrimary,
+                SelectionBackColor = Color.FromArgb(99, 102, 241, 60),
+                SelectionForeColor = TextPrimary,
+                Padding = new Padding(6, 0, 0, 0)
+            };
+            dgvLaporan.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = CardBg,
+                ForeColor = TextPrimary,
+                SelectionBackColor = Color.FromArgb(50, 99, 102, 241),
+                SelectionForeColor = TextPrimary
+            };
+            main.Controls.Add(dgvLaporan);
+
+            lblTotal = new Label
+            {
+                Text = "Total Laporan: 0",
+                Font = new Font("Segoe UI", 9f),
+                ForeColor = TextMuted,
+                Location = new Point(0, 544),
+                Size = new Size(300, 20),
+                BackColor = Color.Transparent,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+            };
+            main.Controls.Add(lblTotal);
+
             LoadLaporan();
         }
 
@@ -36,14 +338,15 @@ namespace Sistem_pelaporan_keracunan_MBG
                 using (SqlCommand cmd = new SqlCommand("sp_ReportLaporan", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@tgl_dari", dateTimePicker1.Value.Date);
-                    cmd.Parameters.AddWithValue("@tgl_sampai", dateTimePicker2.Value.Date);
+                    cmd.Parameters.AddWithValue("@tgl_dari", dtpDari.Value.Date);
+                    cmd.Parameters.AddWithValue("@tgl_sampai", dtpSampai.Value.Date);
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
                         adapter.Fill(dt);
-                        dataGridView1.DataSource = dt;
+                        dgvLaporan.DataSource = dt;
+                        lblTotal.Text = "Total Laporan: " + dt.Rows.Count;
                     }
                 }
             }
@@ -66,17 +369,14 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.Rows.Count == 0)
+            if (dgvLaporan.Rows.Count == 0)
             {
                 MessageBox.Show("Tidak ada data untuk dicetak.", "Info",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            Form6 formCetak = new Form6(
-                dateTimePicker1.Value.Date,
-                dateTimePicker2.Value.Date
-            );
+            Form6 formCetak = new Form6(dtpDari.Value.Date, dtpSampai.Value.Date);
             formCetak.Show();
         }
     }
