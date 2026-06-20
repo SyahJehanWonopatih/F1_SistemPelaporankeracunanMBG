@@ -265,11 +265,9 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Size = new Size(180, 36),
                 Font = new Font("Segoe UI", 9.5f),
                 Format = DateTimePickerFormat.Short,
-                MaxDate = DateTime.Today,   // ← tambah ini
+                MaxDate = DateTime.Today,
                 Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)
             };
-            dtpDari.ValueChanged += (s, e) => LoadLaporan();
-            toolbar.Controls.Add(dtpDari);
 
             toolbar.Controls.Add(new Label
             {
@@ -287,11 +285,9 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Size = new Size(180, 36),
                 Font = new Font("Segoe UI", 9.5f),
                 Format = DateTimePickerFormat.Short,
-                MaxDate = DateTime.Today,   
-                Value = DateTime.Now
+                MaxDate = DateTime.Today,
+                Value = DateTime.Today   // ← ganti dari DateTime.Now
             };
-            dtpSampai.ValueChanged += (s, e) => LoadLaporan();
-            toolbar.Controls.Add(dtpSampai);
 
             Button btnCetak = new Button
             {
