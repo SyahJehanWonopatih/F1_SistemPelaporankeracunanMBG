@@ -91,6 +91,15 @@ namespace Sistem_pelaporan_keracunan_MBG
             menuActive.Controls.Add(new Label { Text = "Import Excel", Font = new Font("Segoe UI", 9.5f, FontStyle.Bold), ForeColor = TextPrimary, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
             sidebar.Controls.Add(menuActive);
 
+            Panel menuWilayah = new Panel { Size = new Size(220, 40), Location = new Point(0, 392), BackColor = SidePanel, Cursor = Cursors.Hand };
+            menuWilayah.Controls.Add(new Label { Text = "Rekap Wilayah", Font = new Font("Segoe UI", 9.5f), ForeColor = TextMuted, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
+            EventHandler bukaWilayah = (s, e) => { this.Close(); new Form8(this.WindowState).Show(); };
+            menuWilayah.Click += bukaWilayah;
+            menuWilayah.MouseEnter += (s, e) => menuWilayah.BackColor = Color.FromArgb(30, 34, 55);
+            menuWilayah.MouseLeave += (s, e) => menuWilayah.BackColor = SidePanel;
+            foreach (Control c in menuWilayah.Controls) { c.Click += bukaWilayah; c.MouseEnter += (s, e) => menuWilayah.BackColor = Color.FromArgb(30, 34, 55); c.MouseLeave += (s, e) => menuWilayah.BackColor = SidePanel; }
+            sidebar.Controls.Add(menuWilayah);
+
             Button btnBack = new Button
             {
                 Text = "↩  Kembali",
