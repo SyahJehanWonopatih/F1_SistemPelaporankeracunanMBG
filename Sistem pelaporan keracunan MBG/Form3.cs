@@ -289,7 +289,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             {
                 Size = new Size(220, 40),
                 Location = new Point(0, 300),
-                BackColor = Color.Transparent,
+                BackColor = SidePanel,
                 Cursor = Cursors.Hand
             };
             menuCetak.Controls.Add(new Label
@@ -304,7 +304,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             EventHandler bukaCetak = (s, e) => { new Form5(this.WindowState).Show(); };
             menuCetak.Click += bukaCetak;
             menuCetak.MouseEnter += (s, e) => menuCetak.BackColor = Color.FromArgb(30, 34, 55);
-            menuCetak.MouseLeave += (s, e) => menuCetak.BackColor = Color.Transparent;
+            menuCetak.MouseLeave += (s, e) => menuCetak.BackColor = SidePanel;
             foreach (Control c in menuCetak.Controls)
             {
                 c.Click += bukaCetak;

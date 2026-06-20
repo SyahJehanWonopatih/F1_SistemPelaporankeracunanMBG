@@ -135,10 +135,39 @@ namespace Sistem_pelaporan_keracunan_MBG
                 BackColor = Color.Transparent
             });
 
-            Panel menuActive = new Panel
+            Panel menuMonitoring = new Panel
             {
                 Size = new Size(220, 40),
                 Location = new Point(0, 254),
+                BackColor = SidePanel,
+                Cursor = Cursors.Hand
+            };
+            menuMonitoring.Controls.Add(new Label
+            {
+                Text = "Monitoring Laporan",
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = TextMuted,
+                Location = new Point(16, 10),
+                Size = new Size(180, 20),
+                BackColor = Color.Transparent
+            });
+            EventHandler bukaMonitoring = (s, e) => { this.Close(); };
+            menuMonitoring.Click += bukaMonitoring;
+            menuMonitoring.MouseEnter += (s, e) => menuMonitoring.BackColor = Color.FromArgb(30, 34, 55);
+            menuMonitoring.MouseLeave += (s, e) => menuMonitoring.BackColor = SidePanel;
+            foreach (Control c in menuMonitoring.Controls)
+            {
+                c.Click += bukaMonitoring;
+                c.MouseEnter += (s, e) => menuMonitoring.BackColor = Color.FromArgb(30, 34, 55);
+                c.MouseLeave += (s, e) => menuMonitoring.BackColor = SidePanel;
+            }
+            sidebar.Controls.Add(menuMonitoring);
+
+            // Menu item aktif: Cetak Laporan
+            Panel menuActive = new Panel
+            {
+                Size = new Size(220, 40),
+                Location = new Point(0, 300),
                 BackColor = Color.FromArgb(30, 34, 55)
             };
             menuActive.Controls.Add(new Panel
@@ -158,7 +187,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             });
             sidebar.Controls.Add(menuActive);
 
-            // Logout button
+            // Tombol Kembali — nempel bawah pakai sidebar.Height
             Button btnBack = new Button
             {
                 Text = "↩  Kembali",
@@ -167,7 +196,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 BackColor = Color.Transparent,
                 FlatStyle = FlatStyle.Flat,
                 Size = new Size(180, 38),
-                Location = new Point(20, 500),
+                Location = new Point(20, sidebar.Height - 60),
                 Cursor = Cursors.Hand,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left
             };
@@ -183,7 +212,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 ForeColor = Color.FromArgb(45, 51, 72),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Size = new Size(180, 20),
-                Location = new Point(20, 540),
+                Location = new Point(20, sidebar.Height - 28),
                 BackColor = Color.Transparent,
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left
             });
