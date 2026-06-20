@@ -187,6 +187,20 @@ namespace Sistem_pelaporan_keracunan_MBG
             });
             sidebar.Controls.Add(menuActive);
 
+            Panel menuImport = new Panel { Size = new Size(220, 40), Location = new Point(0, 346), BackColor = SidePanel, Cursor = Cursors.Hand };
+            menuImport.Controls.Add(new Label { Text = "Import Excel", Font = new Font("Segoe UI", 9.5f), ForeColor = TextMuted, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
+            EventHandler bukaImport = (s, e) => { new Form7(this.WindowState).Show(); };
+            menuImport.Click += bukaImport;
+            menuImport.MouseEnter += (s, e) => menuImport.BackColor = Color.FromArgb(30, 34, 55);
+            menuImport.MouseLeave += (s, e) => menuImport.BackColor = SidePanel;
+            foreach (Control c in menuImport.Controls)
+            {
+                c.Click += bukaImport;
+                c.MouseEnter += (s, e) => menuImport.BackColor = Color.FromArgb(30, 34, 55);
+                c.MouseLeave += (s, e) => menuImport.BackColor = SidePanel;
+            }
+            sidebar.Controls.Add(menuImport);
+
             // Tombol Kembali — nempel bawah pakai sidebar.Height
             Button btnBack = new Button
             {
@@ -417,6 +431,11 @@ namespace Sistem_pelaporan_keracunan_MBG
             Form6 formCetak = new Form6(dtpDari.Value.Date, dtpSampai.Value.Date);
             formCetak.WindowState = this.WindowState;
             formCetak.Show();
+        }
+
+        private void Form5_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
