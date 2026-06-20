@@ -43,6 +43,7 @@
             this.crystalReportViewer1.ReportSource = this.LaporanReport1;
             this.crystalReportViewer1.Size = new System.Drawing.Size(859, 526);
             this.crystalReportViewer1.TabIndex = 0;
+            this.crystalReportViewer1.Load += new System.EventHandler(this.crystalReportViewer1_Load);
             // 
             // Form6
             // 
