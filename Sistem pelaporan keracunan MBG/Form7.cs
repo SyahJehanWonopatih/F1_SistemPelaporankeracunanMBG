@@ -26,10 +26,8 @@ namespace Sistem_pelaporan_keracunan_MBG
         private readonly Color TextMuted = Color.FromArgb(74, 85, 104);
         private readonly Color TableBg = Color.FromArgb(18, 21, 33);
 
-        private readonly string connectionString =
-            "Data Source=TERABYTE\\SYAHJEHAN00;" +
-            "Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;" +
-            "Integrated Security=True";
+        private readonly string connectionString = Koneksi.GetConnectionString();
+
         private DataGridView dgvPreview;
         private Button btnImportDb;
         private DataTable dtExcel;

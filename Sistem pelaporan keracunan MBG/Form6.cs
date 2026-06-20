@@ -13,10 +13,7 @@ namespace Sistem_pelaporan_keracunan_MBG
 {
     public partial class Form6 : Form
     {
-        private readonly string connectionString =
-            "Data Source=TERABYTE\\SYAHJEHAN00;" +
-            "Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;" +
-            "Integrated Security=True";
+        private readonly string connectionString = Koneksi.GetConnectionString();
 
         private DateTime tglDari;
         private DateTime tglSampai;

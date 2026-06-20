@@ -17,8 +17,7 @@ namespace Sistem_pelaporan_keracunan_MBG
        
 
         private readonly SqlConnection conn;
-        private readonly string connectionString =
-            "Data Source=TERABYTE\\SYAHJEHAN00;Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;Integrated Security=True";
+        private readonly string connectionString = Koneksi.GetConnectionString();
 
         private readonly Color BgDark = Color.FromArgb(15, 17, 26);
         private readonly Color SidePanel = Color.FromArgb(22, 25, 41);
