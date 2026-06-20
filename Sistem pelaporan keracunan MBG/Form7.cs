@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -212,7 +213,76 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (dtExcel == null || dtExcel.Rows.Count == 0)
+            {
+                MessageBox.Show("Tidak ada data untuk diimport.", "Info",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            var confirm = MessageBox.Show(
+                $"Import {dtExcel.Rows.Count} baris data ke database?",
+                "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            int sukses = 0;
+            int gagal = 0;
+
+            foreach (DataRow row in dtExcel.Rows)
+            {
+                try
+                {
+                    string nama = row["nama_pelapor"].ToString().Trim();
+                    string kontak = row["kontak"].ToString().Trim();
+                    string alamat = row["alamat"].ToString().Trim();
+                    string kota = row["kota_kab"].ToString().Trim();
+                    string lokasi = row["lokasi_kejadian"].ToString().Trim();
+                    string gejala = row["gejala"].ToString().Trim();
+
+                    if (string.IsNullOrEmpty(nama)) { gagal++; continue; }
+
+                    DateTime tanggal;
+                    if (!DateTime.TryParse(row["tanggal"].ToString(), out tanggal))
+                    {
+                        tanggal = DateTime.Today;
+                    }
+
+                    int jumlahKorban;
+                    if (!int.TryParse(row["jumlah_korban"].ToString(), out jumlahKorban))
+                    {
+                        jumlahKorban = 0;
+                    }
+
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    using (SqlCommand cmd = new SqlCommand("sp_InsertLaporan", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@nama_pelapor", nama);
+                        cmd.Parameters.AddWithValue("@kontak", kontak);
+                        cmd.Parameters.AddWithValue("@alamat", alamat);
+                        cmd.Parameters.AddWithValue("@kota_kab", kota);
+                        cmd.Parameters.AddWithValue("@lokasi_kejadian", lokasi);
+                        cmd.Parameters.AddWithValue("@tanggal", tanggal);
+                        cmd.Parameters.AddWithValue("@jumlah_korban", jumlahKorban);
+                        cmd.Parameters.AddWithValue("@gejala", gejala);
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                    sukses++;
+                }
+                catch
+                {
+                    gagal++;
+                }
+            }
+
+            MessageBox.Show($"Import selesai!\nBerhasil: {sukses}\nGagal: {gagal}", "Sukses",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            dgvPreview.DataSource = null;
+            dtExcel = null;
+            btnImportDb.Enabled = false;
         }
+    
     }
 }
