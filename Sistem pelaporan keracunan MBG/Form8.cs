@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -170,6 +171,51 @@ namespace Sistem_pelaporan_keracunan_MBG
             main.Controls.Add(chartWilayah);
 
             LoadChart();
+        }
+
+        private void LoadChart()
+        {
+            chartWilayah.Series.Clear();
+            chartWilayah.Titles.Clear();
+            chartWilayah.Legends.Clear();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand("sp_RekapWilayah", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+
+                        Series s = new Series("Jumlah Laporan");
+                        s.ChartType = SeriesChartType.Column;
+                        s.Color = Color.FromArgb(99, 102, 241);
+                        s.IsValueShownAsLabel = true;
+                        s.LabelForeColor = TextPrimary;
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            string kota = row["KotaKab"].ToString();
+                            int jumlah = Convert.ToInt32(row["JumlahLaporan"]);
+                            s.Points.AddXY(kota, jumlah);
+                        }
+
+                        chartWilayah.Series.Add(s);
+                    }
+                }
+
+                Title title = new Title("Jumlah Laporan per Wilayah", Docking.Top,
+                    new Font("Segoe UI", 12f, FontStyle.Bold), TextPrimary);
+                chartWilayah.Titles.Add(title);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal load data chart:\n" + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void chart1_Click(object sender, EventArgs e)
