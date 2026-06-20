@@ -268,6 +268,8 @@ namespace Sistem_pelaporan_keracunan_MBG
                 MaxDate = DateTime.Today,
                 Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)
             };
+            dtpDari.ValueChanged += (s, e) => LoadLaporan();
+            toolbar.Controls.Add(dtpDari);
 
             toolbar.Controls.Add(new Label
             {
@@ -288,6 +290,8 @@ namespace Sistem_pelaporan_keracunan_MBG
                 MaxDate = DateTime.Today,
                 Value = DateTime.Today   // ← ganti dari DateTime.Now
             };
+            dtpSampai.ValueChanged += (s, e) => LoadLaporan();
+            toolbar.Controls.Add(dtpSampai);
 
             Button btnCetak = new Button
             {
