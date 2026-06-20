@@ -97,6 +97,15 @@ namespace Sistem_pelaporan_keracunan_MBG
             menuActive.Controls.Add(new Label { Text = "Rekap Wilayah", Font = new Font("Segoe UI", 9.5f, FontStyle.Bold), ForeColor = TextPrimary, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
             sidebar.Controls.Add(menuActive);
 
+            Panel menuLog = new Panel { Size = new Size(220, 40), Location = new Point(0, 438), BackColor = SidePanel, Cursor = Cursors.Hand };
+            menuLog.Controls.Add(new Label { Text = "Log Aktivitas", Font = new Font("Segoe UI", 9.5f), ForeColor = TextMuted, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
+            EventHandler bukaLog = (s, e) => { this.Close(); new Form9(this.WindowState).Show(); };
+            menuLog.Click += bukaLog;
+            menuLog.MouseEnter += (s, e) => menuLog.BackColor = Color.FromArgb(30, 34, 55);
+            menuLog.MouseLeave += (s, e) => menuLog.BackColor = SidePanel;
+            foreach (Control c in menuLog.Controls) { c.Click += bukaLog; c.MouseEnter += (s, e) => menuLog.BackColor = Color.FromArgb(30, 34, 55); c.MouseLeave += (s, e) => menuLog.BackColor = SidePanel; }
+            sidebar.Controls.Add(menuLog);
+
             Button btnBack = new Button
             {
                 Text = "↩  Kembali",
