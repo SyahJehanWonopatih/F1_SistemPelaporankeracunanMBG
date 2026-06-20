@@ -135,70 +135,27 @@ namespace Sistem_pelaporan_keracunan_MBG
                 BackColor = Color.Transparent
             });
 
-            Panel menuMonitoring = new Panel
-            {
-                Size = new Size(220, 40),
-                Location = new Point(0, 254),
-                BackColor = SidePanel,
-                Cursor = Cursors.Hand
-            };
-            menuMonitoring.Controls.Add(new Label
-            {
-                Text = "Monitoring Laporan",
-                Font = new Font("Segoe UI", 9.5f),
-                ForeColor = TextMuted,
-                Location = new Point(16, 10),
-                Size = new Size(180, 20),
-                BackColor = Color.Transparent
-            });
-            EventHandler bukaMonitoring = (s, e) => { this.Close(); };
+            Panel menuMonitoring = new Panel { Size = new Size(220, 40), Location = new Point(0, 254), BackColor = SidePanel, Cursor = Cursors.Hand };
+            menuMonitoring.Controls.Add(new Label { Text = "Monitoring Laporan", Font = new Font("Segoe UI", 9.5f), ForeColor = TextMuted, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
+            EventHandler bukaMonitoring = (s, e) => { this.Close(); new Form3(this.WindowState).Show(); };
             menuMonitoring.Click += bukaMonitoring;
             menuMonitoring.MouseEnter += (s, e) => menuMonitoring.BackColor = Color.FromArgb(30, 34, 55);
             menuMonitoring.MouseLeave += (s, e) => menuMonitoring.BackColor = SidePanel;
-            foreach (Control c in menuMonitoring.Controls)
-            {
-                c.Click += bukaMonitoring;
-                c.MouseEnter += (s, e) => menuMonitoring.BackColor = Color.FromArgb(30, 34, 55);
-                c.MouseLeave += (s, e) => menuMonitoring.BackColor = SidePanel;
-            }
+            foreach (Control c in menuMonitoring.Controls) { c.Click += bukaMonitoring; c.MouseEnter += (s, e) => menuMonitoring.BackColor = Color.FromArgb(30, 34, 55); c.MouseLeave += (s, e) => menuMonitoring.BackColor = SidePanel; }
             sidebar.Controls.Add(menuMonitoring);
 
-            // Menu item aktif: Cetak Laporan
-            Panel menuActive = new Panel
-            {
-                Size = new Size(220, 40),
-                Location = new Point(0, 300),
-                BackColor = Color.FromArgb(30, 34, 55)
-            };
-            menuActive.Controls.Add(new Panel
-            {
-                Size = new Size(3, 40),
-                Location = new Point(0, 0),
-                BackColor = AccentBlue
-            });
-            menuActive.Controls.Add(new Label
-            {
-                Text = "Cetak Laporan",
-                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
-                ForeColor = TextPrimary,
-                Location = new Point(16, 10),
-                Size = new Size(180, 20),
-                BackColor = Color.Transparent
-            });
+            Panel menuActive = new Panel { Size = new Size(220, 40), Location = new Point(0, 300), BackColor = Color.FromArgb(30, 34, 55) };
+            menuActive.Controls.Add(new Panel { Size = new Size(3, 40), Location = new Point(0, 0), BackColor = AccentBlue });
+            menuActive.Controls.Add(new Label { Text = "Cetak Laporan", Font = new Font("Segoe UI", 9.5f, FontStyle.Bold), ForeColor = TextPrimary, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
             sidebar.Controls.Add(menuActive);
 
             Panel menuImport = new Panel { Size = new Size(220, 40), Location = new Point(0, 346), BackColor = SidePanel, Cursor = Cursors.Hand };
             menuImport.Controls.Add(new Label { Text = "Import Excel", Font = new Font("Segoe UI", 9.5f), ForeColor = TextMuted, Location = new Point(16, 10), Size = new Size(180, 20), BackColor = Color.Transparent });
-            EventHandler bukaImport = (s, e) => { new Form7(this.WindowState).Show(); };
+            EventHandler bukaImport = (s, e) => { this.Close(); new Form7(this.WindowState).Show(); };
             menuImport.Click += bukaImport;
             menuImport.MouseEnter += (s, e) => menuImport.BackColor = Color.FromArgb(30, 34, 55);
             menuImport.MouseLeave += (s, e) => menuImport.BackColor = SidePanel;
-            foreach (Control c in menuImport.Controls)
-            {
-                c.Click += bukaImport;
-                c.MouseEnter += (s, e) => menuImport.BackColor = Color.FromArgb(30, 34, 55);
-                c.MouseLeave += (s, e) => menuImport.BackColor = SidePanel;
-            }
+            foreach (Control c in menuImport.Controls) { c.Click += bukaImport; c.MouseEnter += (s, e) => menuImport.BackColor = Color.FromArgb(30, 34, 55); c.MouseLeave += (s, e) => menuImport.BackColor = SidePanel; }
             sidebar.Controls.Add(menuImport);
 
             // Tombol Kembali — nempel bawah pakai sidebar.Height
@@ -216,7 +173,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             };
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.FlatAppearance.MouseOverBackColor = Color.FromArgb(40, 239, 68, 68);
-            btnBack.Click += (s, e) => this.Close();
+            btnBack.Click += (s, e) => { this.Close(); new Form3(this.WindowState).Show(); };
             sidebar.Controls.Add(btnBack);
 
             sidebar.Controls.Add(new Label
