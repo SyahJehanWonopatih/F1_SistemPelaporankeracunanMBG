@@ -265,6 +265,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Size = new Size(180, 36),
                 Font = new Font("Segoe UI", 9.5f),
                 Format = DateTimePickerFormat.Short,
+                MaxDate = DateTime.Today,   // ← tambah ini
                 Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)
             };
             dtpDari.ValueChanged += (s, e) => LoadLaporan();
@@ -286,6 +287,7 @@ namespace Sistem_pelaporan_keracunan_MBG
                 Size = new Size(180, 36),
                 Font = new Font("Segoe UI", 9.5f),
                 Format = DateTimePickerFormat.Short,
+                MaxDate = DateTime.Today,   
                 Value = DateTime.Now
             };
             dtpSampai.ValueChanged += (s, e) => LoadLaporan();
