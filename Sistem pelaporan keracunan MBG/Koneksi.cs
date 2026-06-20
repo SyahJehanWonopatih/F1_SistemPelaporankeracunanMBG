@@ -19,7 +19,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             return $"Data Source={ip}\\SYAHJEHAN00;" +
                    "Initial Catalog=Sistem_Pelaporan_Keracunan_MBG;" +
                    "User ID=mbg_user;" +
-                   "Password=MbgApp#2026!;";
+                   "Password=adminmbg123;";
         }
 
         private static string GetServerIP()
