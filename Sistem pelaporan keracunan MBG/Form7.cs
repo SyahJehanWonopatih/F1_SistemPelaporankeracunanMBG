@@ -203,6 +203,11 @@ namespace Sistem_pelaporan_keracunan_MBG
                             ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true }
                         });
                         dtExcel = result.Tables[0];
+                        foreach (DataColumn col in dtExcel.Columns)
+                        {
+                            col.ColumnName = col.ColumnName.Trim();
+                        }
+
                         dgvPreview.DataSource = dtExcel;
                         btnImportDb.Enabled = dtExcel.Rows.Count > 0;
                     }
