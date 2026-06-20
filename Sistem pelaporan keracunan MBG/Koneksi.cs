@@ -34,7 +34,7 @@ namespace Sistem_pelaporan_keracunan_MBG
             }
             catch { }
 
-            return "127.0.0.1"; // fallback kalau file ga ketemu
+            return "127.0.0.1"; 
         }
     }
 }
