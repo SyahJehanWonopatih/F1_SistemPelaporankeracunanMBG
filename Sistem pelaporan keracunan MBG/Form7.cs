@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -182,7 +184,30 @@ namespace Sistem_pelaporan_keracunan_MBG
 
         private void BtnPilihFile_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog ofd = new OpenFileDialog { Filter = "Excel Workbook|*.xlsx" })
+            {
+                if (ofd.ShowDialog() != DialogResult.OK) return;
 
+                try
+                {
+                    using (var stream = File.Open(ofd.FileName, FileMode.Open, FileAccess.Read))
+                    using (var reader = ExcelReaderFactory.CreateReader(stream))
+                    {
+                        var result = reader.AsDataSet(new ExcelDataSetConfiguration
+                        {
+                            ConfigureDataTable = _ => new ExcelDataTableConfiguration { UseHeaderRow = true }
+                        });
+                        dtExcel = result.Tables[0];
+                        dgvPreview.DataSource = dtExcel;
+                        btnImportDb.Enabled = dtExcel.Rows.Count > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Gagal membaca file Excel:\n" + ex.Message, "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
